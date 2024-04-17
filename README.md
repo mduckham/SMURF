@@ -32,8 +32,8 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 	 - *Embedded rules:* There are mainly two rules embedded in the script for creating waterbody instances: 1) Intersection: when two polygons are intersected, then they are for the same waterbody. 2) Buffer: when a point within a buffer of a specific distance (e.g., 10m) of a polygon, then the point and polygon are two representations of the same waterbody.
 	 - *Creating waterbody instances*: In the final step, the embedded rules are applied to the pre-processed data to return the final waterbody instances (wb_instances). Each waterbody instance shows whether it has a single or multiple representation. 
 
-3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the Vicmap_Ontology.rdf ontology to create the KG of the state of Victoria ([KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1)).
-4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) file and retrieve answers. 
+3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the Vicmap_Ontology.rdf ontology to create the Knowledge Graph (KG) of the state of Victoria ([KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW)).
+4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over the statewide KG file and retrieve answers. 
 
 In summary, the below chart displays the flowchart of the work including the previous four main steps.
 ![flowchart](https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/dee25cb0-77ca-4f34-9574-966ac0e78615)
@@ -64,12 +64,12 @@ Dependencies:
 In order to run the main.py script, you have to do the following steps:
 - Importing data: the above dataset is fed as input.
 - Create wb_instances: This step will create wb_instances.pickle file.
-- Creating KG: Our ontology (Ontology_Vicmap.rdf) in the Ontology folder is defined as input along with their Namespaces. Secondly, metadata files are defined for four dataset layers based on the ontology. Finally, the wb_instances created from the previous steps are populated into our ontology and return the [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) file as output.
+- Creating KG: Our ontology (Ontology_Vicmap.rdf) in the Ontology folder is defined as input along with their Namespaces. Secondly, metadata files are defined for four dataset layers based on the ontology. Finally, the wb_instances created from the previous steps are populated into our ontology and return the [KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW) file as output.
 
 
 ## Queries
 
- - Importing large rdf file into GraphDB: The created [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) file is around 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
+ - Importing large rdf file into GraphDB: The created [KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW) file is around 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
 	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
@@ -89,8 +89,8 @@ The following table shows the processing time in different steps in AWS:
 |-------------------------------------------------------|--------------|------|------|--------------|
 | **Data stage** (Loading dataset, creating   wb_instances) | c6i.32xlarge | 128  | 256  | 2.5 hrs      |
 | **Populating KG** (~ 800K wb_instances)                   | c6i.32xlarge | 128  | 256  | 10.23 min    |
-| **Loading [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) into GraphDB**                     | R3-2XL       | 8    | 61   | 9 min       |
-| **Querying over [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1)**                            | R3-2XL       | 8    | 61   | 3.5 min      |
+| **Loading the KG rdf file into GraphDB**                     | R3-2XL       | 8    | 61   | 9 min       |
+| **Querying over the KG**                            | R3-2XL       | 8    | 61   | 3.5 min      |
 
 
 ## Web query visualisation set up
@@ -128,7 +128,6 @@ The below image shows the web query visualisation dashboard which has the follow
 You can access the public URL link for the map in [here](https://dev6431.d2v2xgrg7bgqzr.amplifyapp.com/).
 
 <img width="1458" alt="Screenshot 2024-02-19 at 22 05 51" src="https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/4868681a-70fb-45f0-b610-34b5845be92c">
-
 
 ## Contributors
 - Mohammad Kazemi Beydokhti (mohammad.beydokhti@rmit.edu.au)
