@@ -88,7 +88,7 @@ The following table shows the processing time in different steps in AWS:
 |                                                       | EC2 instance | CPUs | RAMs | Processing time |
 |-------------------------------------------------------|--------------|------|------|--------------|
 | **Data stage** (Loading dataset, creating   wb_instances) | c6i.32xlarge | 128  | 256  | 2.5 hrs      |
-| **Populating KG** (~ 800K wb_instances)                   | c6i.32xlarge | 128  | 256  | 10.23 min    |
+| **Populating KG** (~2 millions data instances)                   | c6i.32xlarge | 128  | 256  | 10.23 min    |
 | **Loading the KG rdf file into GraphDB**                     | R3-2XL       | 8    | 61   | 9 min       |
 | **Querying over the KG**                            | R3-2XL       | 8    | 61   | 3.5 min      |
 
