@@ -1,7 +1,7 @@
 # Dynamic Vicmap
  This is the repository of source codes and datasets for the Dynamic Vicmap project at the state level. The code has been tested on Victoria state, Australia, and Water_Hydro_Dataset. This process has three main steps:
 
-1. **Ontology Engineering**: The ontology (Vicmap_ontology.rdf) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
+1. **Ontology Engineering**: The ontology [DV_project](StateLevelTest/Ontology/DV_project.rdf) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
 	- Vicmap_ontology:  http://www.semanticweb.org/mkazemi/ontologies/2023/9/Ontology_Vicmap2#
 	- prov: http://www.w3.org/ns/prov#
 	- foaf: http://xmlns.com/foaf/0.1/
