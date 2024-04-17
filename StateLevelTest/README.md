@@ -8,7 +8,7 @@ Other files inside the folder include:
 
 
 Populated knowledge graphs are too large to store on this server. Instead, they are stored on the internal Teams site:
-- [KG10K.rdf](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG10K.rdf?csf=1&web=1&e=bVpDYY): Current version of populated KG with hydro, parcel, and flood datasets for 10K instances (current as of 24.02.13).
+- [KG10K.rdf]([https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG10K.rdf?csf=1&web=1&e=bVpDYY](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ERStqVv1vrtMsYziNdFo7rEBMc17wlXNemJKjURucUxEUw?e=2uUUtd): Current version of populated KG with hydro, parcel, and flood datasets for 10K instances (current as of 24.02.13).
 - [KG.rdf](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=dJsJS6): Current version of populated KG with hydro, parcel, and flood datasets for entire state (current as of 24.02.13).
 
 There is also an archive of older versions on the server:
