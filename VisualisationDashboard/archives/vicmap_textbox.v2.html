@@ -1,0 +1,318 @@
+<!-- Mohammad: I've made quite a few changes to this, but in vicmap_textbox-md.html since on Friday it looked like you might have local updates not yet merged with the repo. Appreciated if you could switch to using my updated version. Thanks. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Dynamic Vicmap</title>
+<!--    leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+
+    <style>
+        body
+        {
+        margin: 0; padding:0;}
+
+    </style>
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+    <script src="node_modules/wellknown/wellknown.js"></script>
+
+
+<style>
+    .container {
+        display: flex;
+        height:100vh;
+    }
+
+    .sidebar {
+        width: 30%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    #sparqlQueryInput {
+        height: 50%; /* Half of the parent's height */
+        resize: vertical; /* Allow vertical resizing */
+    }
+
+    #map {
+        width: 70%;
+        height: 800px; /* Adjust height as needed */
+    }
+
+    /* Existing styles for input and button */
+    #sparqlQueryInput, #executeQueryButton {
+        margin-bottom: 10px;
+        width: 100%; /* Make input and button expand to fill the sidebar */
+    }
+</style>
+
+</head>
+
+
+
+
+<body>
+    <div class="container">
+    <div class="sidebar">
+        <textarea id="sparqlQueryInput" rows="4" cols="50">Write your SPARQL query here...</textarea><br>
+        <button id="executeQueryButton">Execute Query</button>
+    </div>
+    <div id="map"></div>
+</div>
+
+
+
+<script>
+
+
+     // Map initialization
+    var map = L.map('map').setView([-37.8136, 144.9631], 10);
+
+
+
+    /*==============================================
+                TILE LAYER and WMS
+    ================================================*/
+    //osm layer
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    osm.addTo(map);
+    // map.addLayer(osm)
+
+<!--    watercolor-->
+
+    var Stadia_StamenWatercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
+	minZoom: 1,
+	maxZoom: 16,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'jpg'
+    });
+<!--map.addLayer(Stadia_StamenWatercolor)-->
+
+<!--google street-->
+
+    googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+    });
+<!--    map.addLayer(googleStreets)-->
+
+ //google satellite
+    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    // googleSat.addTo(map)
+
+  // vicmap arial
+
+  var vicmap_arial = L.tileLayer.wms('https://base.maps.vic.gov.au/service?service=wmts&request=getCapabilities', {
+    layers: 'vicmap_arial'
+    });
+
+
+var baseMaps = {
+        "OSM": osm,
+        'Google Street': googleStreets,
+        "Google Satellite": googleSat,
+        "Vicmap Aerial":vicmap_arial
+    };
+
+
+
+
+// Define the projection information
+<!--    var originalProjection = "+proj=utm +zone=55 +south"; //32755-->
+<!--    var wgs84Projection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; //4326-->
+
+function convertUTMtoWGS84(utmCoords) {
+    return proj4(originalProjection, wgs84Projection, utmCoords);
+}
+
+
+
+  // SPARQL query dispatcher class
+  class SPARQLQueryDispatcher {
+    constructor(endpoint) {
+      this.endpoint = endpoint;
+    }
+
+    query(sparqlQuery) {
+      const fullUrl = this.endpoint + '?query=' + encodeURIComponent(sparqlQuery);
+      const headers = { 'Accept': 'application/sparql-results+json' };
+
+      return fetch(fullUrl, { headers }).then(body => body.json());
+    }
+  }
+
+  // SPARQL endpoint and query
+  const endpointUrl = 'http://localhost:7200/repositories/Dynamic_Vicmap';
+<!--   const sparqlQuery = `-->
+<!--PREFIX onto: <http://www.ontotext.com/>-->
+<!--prefix Ontology_Vicmap:<http://www.semanticweb.org/mkazemi/ontologies/2023/9/Ontology_Vicmap2#>-->
+<!--prefix dcam:<http://purl.org/dc/dcam/>-->
+<!--prefix dcat:<http://www.w3.org/ns/dcat#>-->
+<!--prefix dcterms:<http://purl.org/dc/terms/>-->
+<!--prefix dqv:<http://www.w3.org/ns/dqv#>-->
+<!--prefix fsdf:<https://linked.data.gov.au/def/fsdf/>-->
+<!--prefix geosparql:<http://www.opengis.net/ont/geosparql#>-->
+<!--prefix ns:<http://www.w3.org/2006/vcard/ns#>-->
+<!--prefix owl:<http://www.w3.org/2002/07/owl#>-->
+<!--prefix prov:<http://www.w3.org/ns/prov#>-->
+<!--prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>-->
+<!--prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>-->
+<!--prefix skos:<http://www.w3.org/2004/02/skos/core#>-->
+<!--prefix terms:<http://purl.org/dc/terms/#>-->
+<!--prefix vann:<http://purl.org/vocab/vann/>-->
+
+
+<!--SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)-->
+<!-- 	?pfi ?createdate ?geometry_coord-->
+<!--	(STRAFTER(STR(?geometry), '#') AS ?geometryName)-->
+
+
+
+<!--WHERE {?wb_instance rdf:type geosparql:Feature;-->
+<!--				geosparql:hasGeometry ?geometry.-->
+
+<!--            ?geometry rdf:type geosparql:Geometry ;-->
+<!--                Ontology_Vicmap:hasPFI ?pfi;-->
+<!--                Ontology_Vicmap:createDate ?createdate;-->
+<!--                Ontology_Vicmap:geometryCoordinates ?geometry_coord.-->
+
+<!--    {-->
+<!--SELECT ?wb_instance-->
+
+<!--		WHERE {?wb_instance rdf:type geosparql:Feature;-->
+<!--				geosparql:hasGeometry ?geometry1.-->
+
+<!--            ?geometry1 rdf:type geosparql:Geometry ;-->
+<!--                Ontology_Vicmap:geometryCoordinates ?coord1.-->
+
+<!--     		 FILTER (regex(str(?coord1), "POLYGON", "i"))-->
+
+<!--			?wb_instance  geosparql:hasGeometry ?geometry2.-->
+<!--  			?geometry2 rdf:type geosparql:Geometry ;-->
+<!--                Ontology_Vicmap:geometryCoordinates ?coord2.-->
+
+<!-- 			FILTER (regex(str(?coord2), "POINT", "i"))}-->
+<!--GROUP BY ?wb_instance-->
+<!--HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)-->
+<!--    }-->
+<!--}-->
+<!--LIMIT 10-->
+<!--`;-->
+
+const utmProjection =  "+proj=utm +zone=55 +south"
+
+var pointsLayer = L.layerGroup().addTo(map);
+var polygonsLayer = L.layerGroup().addTo(map);
+var features = L.featureGroup();
+
+
+// Function to convert coordinates
+        function convertCoords(x, y) {
+            return proj4(originalProjection, wgs84Projection, [x, y]);
+        }
+<!--        var featureGroup = L.featureGroup().addTo(map);-->
+
+        // Function to parse and plot a geometry
+        function plotGeometry(wktString, pfi) {
+            if (wktString.startsWith("POINT")) {
+                // Extract and convert POINT coordinates
+
+                var utmPoint = wellknown.parse(wktString);
+                var wgs84Point = proj4(utmProjection, 'WGS84', utmPoint.coordinates);
+                var pointMarker = L.marker([wgs84Point[1], wgs84Point[0]]).bindPopup("PFI: " + pfi);
+                pointMarker.addTo(pointsLayer);  // Add to points layer
+                pointMarker.addTo(features)
+
+            } else if (wktString.startsWith("POLYGON")) {
+                // Extract and convert POLYGON coordinates
+                var utmPolygon = wellknown.parse(wktString);
+
+                    // Convert UTM coordinates to WGS84 for each ring of the polygon
+                 utmPolygon.coordinates = utmPolygon.coordinates.map(ring => {
+                        return ring.map(coord => {
+                              return proj4(utmProjection, 'WGS84', coord);
+                         });
+                    });
+
+                    var polygon = L.geoJSON(utmPolygon).bindPopup('PFI: '+ pfi).addTo(map);
+                    polygon.addTo(polygonsLayer);  // Add to polygons layer
+                    polygon.addTo(features)
+
+            }
+        }
+
+
+
+function clearLayers() {
+    pointsLayer.clearLayers();
+    polygonsLayer.clearLayers();
+}
+
+var layerControl;
+
+// Function to update the layer control
+function updateLayerControl() {
+    if (layerControl) {
+        map.removeControl(layerControl); // Remove existing layer control
+    }
+    var overlayMaps = {
+        "Waterbody_Point": pointsLayer,
+        "Waterbody_Polygon": polygonsLayer
+    };
+    layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    layerControl.addTo(map); // Add new layer control to the map
+}
+
+// Function to clear existing layers
+function clearLayers() {
+    pointsLayer.clearLayers();
+    polygonsLayer.clearLayers();
+}
+
+// Event listener for the button
+document.getElementById('executeQueryButton').addEventListener('click', function() {
+    // Get the query from the input box
+    const sparqlQuery = document.getElementById('sparqlQueryInput').value;
+
+    // Clear existing layers before plotting new results
+    clearLayers();
+
+    // Execute the query and plot the results
+    const queryDispatcher = new SPARQLQueryDispatcher(endpointUrl);
+    queryDispatcher.query(sparqlQuery).then(result => {
+        result.results.bindings.forEach(binding => {
+            const geometryCoordinates = binding.geometry_coord.value;
+            const pfi = binding.pfi.value;
+<!--            const ftype = binding.hasFeatureType.value;-->
+
+            plotGeometry(geometryCoordinates, pfi);
+            map.fitBounds(features.getBounds(), { padding: [50, 50] });
+
+            updateLayerControl();
+
+    });
+
+
+});
+});
+
+
+
+</script>
+
+
+</body>
+</html>

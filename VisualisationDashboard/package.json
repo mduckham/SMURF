@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "bing-chat": "^0.2.3",
+    "dotenv": "^16.3.2",
+    "fetch-sparql-endpoint": "^4.1.0",
+    "node-fetch": "^2.7.0",
+    "openai": "^4.25.0",
+    "proj4": "^2.9.2",
+    "rdflib": "^2.2.33",
+    "utm-latlng": "^1.0.7",
+    "wellknown": "^0.5.0",
+    "wkt": "^0.1.1"
+  }
+}

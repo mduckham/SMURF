@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap/"
+     xml:base="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:ns="http://www.w3.org/2003/06/sw-vocab-status/ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:wot="http://xmlns.com/wot/0.1/"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:prov="http://www.w3.org/ns/prov#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vann="http://purl.org/vocab/vann/"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:schema="http://schema.org/">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap">
+        <owl:imports rdf:resource="http://www.w3.org/ns/prov#"/>
+        <owl:imports rdf:resource="http://xmlns.com/foaf/0.1/"/>
+        <owl:imports rdf:resource="https://w3id.org/omg/0-3"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://schema.org/geo -->
+
+    <rdfs:Datatype rdf:about="http://schema.org/geo"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasSource -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasSource">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/omg#hasGeometry -->
+
+    <rdf:Description rdf:about="https://w3id.org/omg#hasGeometry">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#Waterbody"/>
+    </rdf:Description>
+    
+
+
+    <!-- https://w3id.org/omg#hasGeometryContext -->
+
+    <rdf:Description rdf:about="https://w3id.org/omg#hasGeometryContext">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasCreateDate -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasCreateDate">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasFeatureType -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasFeatureType">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasPFI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasPFI">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasUFI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasUFI">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasVarietyOf -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#hasVarietyOf">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#Waterbody"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#isAuthoritative -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#isAuthoritative">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#GeometryContext"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#spatialLocation -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#spatialLocation">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+        <rdfs:range rdf:resource="http://schema.org/geo"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#waterbodyID -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#waterbodyID">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#Waterbody"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/prov#value -->
+
+    <rdf:Description rdf:about="http://www.w3.org/ns/prov#value">
+        <rdfs:domain rdf:resource="https://w3id.org/omg#Geometry"/>
+    </rdf:Description>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#Waterbody -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/mkazemi/ontologies/2023/8/Ontology_Vicmap#Waterbody"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi -->
+

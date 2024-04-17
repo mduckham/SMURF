@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Dynamic Vicmap</title>
+<!--    leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+
+    <style>
+        body
+        {
+        margin: 0; padding:0;}
+
+    </style>
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+    <script src="node_modules/wellknown/wellknown.js"></script>
+
+
+<style>
+    .container {
+        display: flex;
+        height:100vh;
+    }
+
+    .sidebar {
+        width: 30%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    textarea {font-size: 10px;}
+
+
+    #sparqlQueryInput {
+        height: 50%; /* Half of the parent's height */
+        resize: vertical; /* Allow vertical resizing */
+    }
+
+    #map {
+        width: 70%;
+        height: 800px; /* Adjust height as needed */
+    }
+
+    /* Existing styles for input and button */
+    #sparqlQueryInput, #executeQueryButton {
+        margin-bottom: 10px;
+        width: 100%; /* Make input and button expand to fill the sidebar */
+    }
+</style>
+
+</head>
+
+
+
+
+<body>
+    <div class="container">
+    <div class="sidebar">
+        <textarea id="sparqlQueryInput" rows="4" cols="50">Write your SPARQL query here...</textarea><br>
+        <button id="executeQueryButton">Execute Query</button>
+    </div>
+    <div id="map"></div>
+</div>
+
+
+
+<script>
+
+
+     // Map initialization
+    var map = L.map('map').setView([-37.8136, 144.9631], 10);
+
+
+
+    /*==============================================
+                TILE LAYER and WMS
+    ================================================*/
+    //osm layer
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    osm.addTo(map);
+    // map.addLayer(osm)
+
+<!--    watercolor-->
+
+    var Stadia_StamenWatercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
+	minZoom: 1,
+	maxZoom: 16,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'jpg'
+    });
+<!--map.addLayer(Stadia_StamenWatercolor)-->
+
+<!--google street-->
+
+    googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+    });
+<!--    map.addLayer(googleStreets)-->
+
+ //google satellite
+    googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+    // googleSat.addTo(map)
+   // vicmap base map
+   
+
+
+
+  // vicmap arial
+
+  var vicmap_arial = L.tileLayer.wms('https://base.maps.vic.gov.au/service?service=wmts&request=getCapabilities', {
+    layers: 'vicmap_arial'
+    });
+
+
+var baseMaps = {
+        "OSM": osm,
+        'Google Street': googleStreets,
+        "Google Satellite": googleSat,
+<<<<<<< Updated upstream:VisualisationDashboard/vicmap_textbox-md.v1.html
+        "Vicmap Aerial":vicmap_arial
+=======
+
+>>>>>>> Stashed changes:Visualisation dashboard/vicmap_textbox-md.html
+    };
+
+updateLayerControl();
+
+
+// Define the projection information
+<!--    var originalProjection = "+proj=utm +zone=55 +south"; //32755-->
+<!--    var wgs84Projection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; //4326-->
+
+function convertUTMtoWGS84(utmCoords) {
+    return proj4(originalProjection, wgs84Projection, utmCoords);
+}
+
+
+
+  // SPARQL query dispatcher class
+  class SPARQLQueryDispatcher {
+    constructor(endpoint) {
+      this.endpoint = endpoint;
+    }
+
+    query(sparqlQuery) {
+      const fullUrl = this.endpoint + '?query=' + encodeURIComponent(sparqlQuery);
+      const headers = { 'Accept': 'application/sparql-results+json' };
+
+      return fetch(fullUrl, { headers }).then(body => body.json());
+    }
+  }
+
+  // SPARQL endpoint and query
+<<<<<<< Updated upstream:VisualisationDashboard/vicmap_textbox-md.v1.html
+  const endpointUrl = 'http://localhost:7200/repositories/DV10K-240205';
+=======
+  const endpointUrl = 'http://localhost:7200/repositories/Test3';
+>>>>>>> Stashed changes:Visualisation dashboard/vicmap_textbox-md.html
+const sparqlprefix = `
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX Ontology_Vicmap: <http://www.semanticweb.org/DV_project#>
+prefix dcam:<http://purl.org/dc/dcam/>
+prefix dcat:<http://www.w3.org/ns/dcat#>
+prefix dcterms:<http://purl.org/dc/terms/>
+prefix dqv:<http://www.w3.org/ns/dqv#>
+prefix fsdf:<https://linked.data.gov.au/def/fsdf/>
+prefix geosparql:<http://www.opengis.net/ont/geosparql#>
+prefix ns:<http://www.w3.org/2006/vcard/ns#>
+prefix owl:<http://www.w3.org/2002/07/owl#>
+prefix prov:<http://www.w3.org/ns/prov#>
+prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+prefix skos:<http://www.w3.org/2004/02/skos/core#>
+prefix terms:<http://purl.org/dc/terms/#>
+<<<<<<< Updated upstream:VisualisationDashboard/vicmap_textbox-md.v1.html
+prefix vann:<http://purl.org/vocab/vann/>`;
+=======
+prefix vann:<http://purl.org/vocab/vann/>
+
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+`;
+>>>>>>> Stashed changes:Visualisation dashboard/vicmap_textbox-md.html
+
+const utmProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
+
+var features = L.featureGroup().addTo(map);
+
+
+// Function to convert coordinates
+        function convertCoords(x, y) {
+            return proj4(originalProjection, wgs84Projection, [x, y]);
+        }
+
+        // Function to parse and plot a geometry
+        function plotGeometry(wktString, pfi, ufi, ftype, createDate) {
+            if (wktString.startsWith("POINT")) {
+                // Extract and convert POINT coordinates
+
+                var utmPoint = wellknown.parse(wktString);
+               var wgs84Point = proj4('WGS84', 'WGS84', utmPoint.coordinates);
+                var pointMarker = L.circle([wgs84Point[1], wgs84Point[0]], {radius: 10, weight: 5, fillOpacity: 0.5}).bindPopup("<table><tr style='background-color:#EEEEFF'><td>PFI:</td><td>" + pfi + 
+                    "</td></tr><tr><td>UFI:</td><td>" + ufi + 
+                        "</td></tr><tr style='background-color:#EEEEFF'><td>Feature type:</td><td>" + ftype +
+                            "</td></tr><tr><td>Create Date:</td><td>" + createDate + "</td></tr></table>");
+                pointMarker.addTo(features);
+
+            } else if (wktString.startsWith("POLYGON")) {
+                // Extract and convert POLYGON coordinates
+                var utmPolygon = wellknown.parse(wktString);
+
+                    //Convert UTM coordinates to WGS84 for each ring of the polygon
+                 utmPolygon.coordinates = utmPolygon.coordinates.map(ring => {
+                        return ring.map(coord => {
+                              return proj4('WGS84', 'WGS84', coord);
+                         });
+                    });
+
+                    var polygon = L.geoJSON(utmPolygon).bindPopup("<table><tr style='background-color:#EEEEFF'><td>PFI:</td><td>" + pfi + 
+                    "</td></tr><tr><td>UFI:</td><td>" + ufi + 
+                        "</td></tr><tr style='background-color:#EEEEFF'><td>Feature type:</td><td>" + ftype +
+                            "</td></tr><tr><td>Create Date:</td><td>" + createDate + "</td></tr></table>");
+                    polygon.addTo(features);
+
+            }
+        }
+
+
+
+function clearLayers() {
+    features.clearLayers();
+}
+
+var layerControl;
+
+// Function to update the layer control
+function updateLayerControl() {
+    if (layerControl) {
+        map.removeControl(layerControl); // Remove existing layer control
+    }
+    //layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(map);
+    layerControl = L.control.layers(baseMaps).addTo(map);
+
+}
+
+// Function to clear existing layers
+function clearLayers() {
+    features.clearLayers();
+}
+
+// Event listener for the button
+document.getElementById('executeQueryButton').addEventListener('click', function() {
+    // Get the query from the input box
+    const partialSparqlQuery = document.getElementById('sparqlQueryInput').value;
+    const sparqlQuery = sparqlprefix + partialSparqlQuery;
+
+    // Clear existing layers before plotting new results
+    clearLayers();
+
+    // Execute the query and plot the results
+    const queryDispatcher = new SPARQLQueryDispatcher(endpointUrl);
+    queryDispatcher.query(sparqlQuery).then(result => {
+        result.results.bindings.forEach(binding => {
+            const geometryCoordinates = binding.geometry_coord.value;
+            const pfi = binding.pfi.value;
+            const ufi = binding.ufi.value;
+            let debug = "Empty";
+            try{            debug = binding.debug.value;
+            }
+            catch(err){}
+            const ftype = binding.ftype.value;
+            const createDate =  binding.createdate.value;
+
+            plotGeometry(geometryCoordinates, pfi, ufi, ftype, createDate);
+            map.fitBounds(features.getBounds(), { padding: [50, 50] });
+    });
+
+
+});
+});
+
+
+
+</script>
+
+
+</body>
+</html>

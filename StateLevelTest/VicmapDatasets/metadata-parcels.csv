@@ -1,0 +1,139 @@
+﻿Metadata,Description
+Resource Name:,V_PARCEL_MP
+Title:,Vicmap Property - Parcel Polygon with Parcel Detail
+Anzlic ID:,ANZVI0803003298
+Custodian:,
+Owner:,
+Jurisdiction:,Victoria
+Abstract:,"Vicmap Property Simplified Content includes
+      · Parcel and Property Polygons;
+      · Parcel and Property Identifiers - parcel descriptors (including Standard Parcel Identifiers (SPI)), 
+        Council reference numbers;
+      · Registered and proposed (All proposals entered prior to July 2002 are non-polygonal and all 
+        entered post July 2002 are polygonised) parcels;
+      · Crown and Freehold land differentiation;
+      · Cadastral Road Casements;
+      · Easements (Note: all new easements are being captured for the whole State. Previously, only 
+        easements in the metropolitan area were captured. There is no current program to review and 
+        capture missing easements);
+      · Unique Feature Identifiers, date stamps and data quality information.
+Spatial Datasets comprising Vicmap Property Simplified are listed below.  See their metadata entries for more detailed metadata.
+Annotation Text - Vicmap Property (ANNOTATION_TEXT)
+Cadastral Area Boundary - Vicmap Property (CAD_AREA_BDY)
+Centroid - Vicmap Property (CENTROID)
+Aspatial Table - Parcel  Property Table - Vicmap Property (PARCEL_PROPERTY)
+Parcel Map Polygons - Vicmap Property (PARCEL_MP)
+Property Map Polygons - Vicmap Property (PROPERTY_MP)
+Road Centre Line Chain - Vicmap Property (ROAD_CL_CHAIN)"
+Search Words:,"Planning cadastre ,  Environment ,  Boundaries"
+Purpose:,
+Geographic Extent Polygon:,
+Geographic Bounding Box:,
+Beginning to Ending Date:,unknown - now
+Maintainence and Update Frequency:,Continual
+Stored Data Format:,
+Available Format(s) Types:,All major digital formats
+Positional Accuracy:,"Vicmap Property is classified as ""BB"" accuracy. That is, 90% of well-defined features are within 1mm (at plot scale) of their true position, eg 1:500 equates to +/- 0.5metre and 1:25,000 equates to +/- 25 metres. Anecdotal evidence suggests that the spatial accuracy of the major part of the data set (at all scales) is frequently better than BB.
+
+Where subdivisions have been submitted in digital form, the ""survey accurate"" data has been used to extend the accuracy of the surrounding detail. This information has not been included in the precision attribute but a proposal is being considered to populate the precision value for every point that describes the cadastral boundaries.
+
+Relative accuracy
+
+No ""shift"" of data as a means of ""cartographic enhancement"" to facilitate presentation has been employed for any real world feature."
+Attribute Accuracy:,"For this product, feature and attribute accuracy is a measure of the degree to which the features and attribute values of spatial objects agree with the information on the source material. The allowable error in attribute accuracy ranges between a 1% (for new data additions) to 5% (for pre-maintenance contract data)."
+Logical Consistency:,"Logical consistency is a measure of the degree to which data complies with the technical specification. The allowable error in logical consistency ranges between 3% (new data additions) to 5% (pre-maintenance contract data). The test procedures are a mixture of software scripts and on-screen, visual checks."
+Data Source:,"	
+Dataset Source: Vicmap Property is derived from what were originally two logically and physically separated databases. Melbourne Water created a digital data set covering the Melbourne Metropolitan area.  Survey and Mapping Victoria created a similar data set covering rural Victoria. Both data sets consisted of  ""spaghetti"" line work (that is, unintelligent data).   
+
+Neither data set was suited to GIS applications, as neither was ""clean"" in terms of line work, topologically-structured, or held any significant degree of ""intelligence"". The main level of ""intelligence"" linked to the data was through line style, colour, level, etc, and a feature code, data link which defined the scale origins and type of boundary represented.
+
+The Metropolitan Base was created as a reference framework for Melbourne Water's assets and reflected Melbourne Water's business needs by holding subdivisions at both the proposed and approved stages. It focused on rateable properties and placed less emphasis on the cadastral changes that did not relate to 'property
+
+Survey and Mapping's rural data set reflected a more basic view of land administration, comprising transferable parcels of land. This project entailed a complete re-compilation of the source data, being original Parish plans, registered plans of subdivision and VicRoads survey plans. The process required the production of pencil-plot compilations at a chosen scale of 1:2,500 over towns and built- up areas (using survey-acquired control) and 1:25,000 for the balance of the state (using existing standard Vicmap 1:25,000 topographic mapping as control).  In a small number of areas, where existing base mapping could be used or where compilation at 1:25,000 was impractical (eg along the Murray River and parts of South Gippsland), mapping at 1:10,000 was produced.  Where other authorities' (Local Government or Water Boards) mapping at similar or better scale and accuracy was found, it was adopted or upgraded and used in preference to producing new compilations
+
+Both data sets were eventually brought under control of a single authority, that of the Office of Geographic Data Co-ordination (OGDC). Key challenges for OGDC were to provide a common structure to the data and to standardise the maintenance.  Government restructures have since seen administration changes through Geographic Data Victoria (GDV) to Land Victoria, but management of the data has remained stable.  Throughout this time, significant changes to the data (its structure, quality, content and maintenance) have occurred, one of the most noteworthy being the out-sourcing of data maintenance to a non-government agency.  Whilst full control and administration of the data remains with Information Services Branch (ISB), Vicmap Property is now maintained by an external provider.
+
+Other key changes to the property map base have included: 
+· amalgamation of the two map bases; 
+· translation into an Oracle® data base environment; 
+· line cleaning and topological; 
+· the identification and rectification of many ""gaps"" found in the data (for example, missing survey plan notings, and incomplete identification of Crown land).
+· Restructuring of the data to correctly map real world parcel and property relationships
+
+Improvements in the data continue, with improved input from local government and other key sources allowing faster turn-around of update information and added levels of attribution, for example Council property reference numbers.
+
+
+
+Dataset Originality: Primary"
+Contact Organisation:,DEECA
+Contact Position:,
+Address:,
+Telephone:,
+Facsimile:,
+Email Address:,
+Metadata Date:,30/03/2023
+Additional Metadata:,"History: 
+Metropolitan Digital capture commenced in 1984 and initial coverage was obtained in 1990.
+
+Digital capture of the balance of Victoria, beyond the Metropolitan area, started in 1983 with Statewide coverage being obtained  in December 1994.
+
+Maintenance Standardised Statewide December 1996
+
+Linecleaning Commenced January 1997 and completed June 1997
+
+Data Migrated into single GIS structure  commencing June 1997 and completed Dec 1997.
+
+Model Restructured to correctly reflect real world parcel / property relationships (1999 - 2002)
+                     - Client consultation and education (1999 - 2001)
+                     - Model Development (June 2001 - April 2002)
+                     - Migration to the new model (May 2002 - Nov 2002)
+
+
+
+Current Design Issues: Property View Creation. 
+
+Work is being undertaken to correctly represent the property view of the State. The view will be created on an LGA basis and the initial councils to have the property view created will be the Rural LGA's.
+
+The Standard Parcel Identifier (SPI) Project: 
+
+The initial phase of providing unique identifiers to all parcels with identifiers common to more then one parcel (eg ""Part"" parcels) has been incorporated into the Vicmap Property. The next phase of this project is to verify every parcel identifier held in Vicmap Property against the Victorian On-line Titles System (VOTS). Suspect and duplicate SPI's are to be flagged, investigated and corrected in Vicmap Property. The project will process the SPI's on an LGA basis and will initially concentrate on achieving a 95% matching rate for Vicmap Property within VOTS for LGA's identified by Key Land Victoria Projects.
+
+Crown Land Status On-line: 
+
+Vicmap Property will provide the underlying map base for the Crown Land Status On-line project. A key outcome of this project will be verification of existing Crown land data and the accelerated inclusion of new/changed data.
+
+Incorporation of single-storey strata plans:
+
+A significant number of single level strata plans have been converted from a subdivision footprint to individual lot representation. Whilst there isn't a specific project to upgrade these plans, the internal lots are being included as they are being identified.
+
+Future Design Issues: Vicmap Property Precision: 
+
+A proposal is currently under consideration, to populate the precision of each point in the mapbase and to assign the survey accurate coordinate to all points created from digital input of survey geometry. This will enable Land Victoria to provide more accurate statistical information regarding the precision of every point within the mapbase.
+
+Streamlined Planning via Electronic Applications and Referrals (SPEAR): 
+
+SPEAR aims to improve land development processes in Victoria using the Internet. SPEAR will streamline planning and subdivision approvals by enabling electronic lodgment, referral and processing of applications. Mapbase benefits to be gained by this application include:
+              · the supply of survey geometry to improve the spatial accuracy
+              · early access to proposals
+              · subdivision version control management
+
+Fulfilment of strategic aims: 
+
+         Integration with other Vicmap Digital data sets (Roads and Topographic): 
+               As part of Land Victoria's spatial data framework strategy, work will continue to bring 
+               all Vicmap products into closer alignment, particularly in terms of vertical topology.
+
+'Single look and feel' text annotation: 
+
+Work is being undertaken to achieve a consistent presentation to annotation, regardless of its source and source scale. 
+
+
+
+Related Documents: Product Description Vicmap Property Version 5.1. - The document provides details about Vicmap Property including, Data Content, development, quality & application, Metadata, pricing, access and contact information. 
+URL www.land.vic.gov.au\spatial
+
+https://www.land.vic.gov.au/maps-and-spatial/spatial-data/vicmap-catalogue"
+Access Constraint:,CC-BY
+Country Name:,
+Locality:,
+Region:,

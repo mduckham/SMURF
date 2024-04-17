@@ -1,0 +1,32 @@
+﻿Metadata,Description
+Resource Name:,HY_WATER_AREA_POLYGON
+Title:,Vicmap Hydro - Water Polygon
+Anzlic ID:,ANZVI0803002491
+Custodian:,
+Owner:,
+Jurisdiction:,Victoria
+Abstract:,"This layer is part of Vicmap Hydro and contains polygon features delineating hydrological features. Includes; Lakes, Flats (subject to inundation),  Wetlands, Pondages (saltpan & sewrage), Watercourse  Areas, Rapids & Waterfalls Attributed for name. Centroid layer also available."
+Search Words:,"Elevation ,  Inland waters ,  Environment ,  Farming ,  Geoscientific information"
+Purpose:,"Vicmap Hydro provides an accurate representation of natural and man made Hydrographic features across Victoria, at a capture scale of 1:25,000.  It is used in a variety of applications, particularly in emergency services, natural resource management, planning and development, and digital map publication."
+Geographic Extent Polygon:,
+Geographic Bounding Box:,"(-34, 150, -39, 141)"
+Beginning to Ending Date:,1974-01-01 - 1995-01-01
+Maintainence and Update Frequency:,Irregular
+Stored Data Format:,
+Available Format(s) Types:,All major digital formats
+Positional Accuracy:,"The planimetric accuracy attainable will be the sum of errors from three sources:the positional accuracy of the source material, errors due to the conversion process, errors due to the manipulation process.  For topographic base derived data this represents an error of 8.3m on the ground for 1:25,000 data. A conservative estimate of 10m for the standard deviation will be used in any data quality information.  Alternate and equal ways of expressing this error are: not more than 10% of well-defined points will be in error by more than 16 m.  The worst case error for the data is +/- 30 m. For vertical positional accuracy of points determined from contours there is an expectation that the elevation accuracy (standard deviation) will be half the value of the contour interval."
+Attribute Accuracy:,The allowable error in attribute accuracy ranges between a 1% allowable error to 5% error.  For this product attribute accuracy ranges between a 1% to 5% error.  For this product attribute accuracy is a measure of the degree to which features and attribute values of spatial objects agree with the information on the source material.
+Logical Consistency:,"The allowable error in attribute accuracy ranges between 1% to 5% error.  Logical consistency is a measure of the degree to which data complies with the technical specification.  The test procedures are a mixture of scripts, microstation MGE program and on-screen visual checks."
+Data Source:,"Dataset Source: The line work and points were derived from the Vicmap Digital Topographic (VDT) map base coordinated by LIG. VDT evolved from Victoria's printed 1:25,000 Topographic Map Series program together with the need to supply a control framework for the creation of the rural Digital Cadastral Mapbase.  The capture scale is 1:25,000 Statewide and the coverage, except for minor border issues is also statewide. Dataset Originality: Primary"
+Contact Organisation:,DEECA
+Contact Position:,
+Address:,
+Telephone:,
+Facsimile:,
+Email Address:,
+Metadata Date:,21/02/2020
+Additional Metadata:,www.delwp.vic.gov.au/vicmap
+Access Constraint:,CC-BY
+Country Name:,
+Locality:,
+Region:,
