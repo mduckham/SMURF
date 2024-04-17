@@ -2,7 +2,7 @@
 
 ## Preliminaries
 
-The following queries assume this preamble. Note that in the latest version of [the web query visualisation board](DynamicVicmap/VisualisationDashboard/vicmap_main_090223.html) this preamble is hard-coded into the HTML. 
+The following queries assume this preamble. Note that in the latest version of [the web query visualisation board](https://github.com/mduckham/DynamicVicmap/blob/main/VisualisationDashboard/vicmap_main_050324.html) this preamble is hard-coded into the HTML. 
 
 ```
 PREFIX onto: <http://www.ontotext.com/>
