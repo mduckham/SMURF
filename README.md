@@ -69,17 +69,17 @@ In order to run the main.py script, you have to do the following steps:
 
 ## Queries
 
- - Importing large rdf file into GraphDB: The created [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) file is around 3.5G for the whole state, so this should be imported as server files into GraphDB as follows:
+ - Importing large rdf file into GraphDB: The created [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) file is around 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
 	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
 	 - Finally, provide the IRI of the rdf file (You can find this in the ontology rdf file (e.g., http://www.semanticweb.org/DV_project#)), it should be successfully imported into the online GraphDB workbench.
 
-- You can find the list of SPARQL queries in the in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG) in GraphDB and retrieve answers.
+- You can find the list of SPARQL queries in the in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG for the whole state) in GraphDB and retrieve answers.
  
 ## AWS EC2 instance
 We tested this work on the AWS and the following EC2 instances:
-- C6I 32xlarge for creating [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1).
+- C6I 32xlarge for creating Knowldge Graph for the whole state. 
 - R3.2xlarge for running queries in GraphDB desktop.
 
 ## Processing time
