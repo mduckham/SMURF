@@ -104,7 +104,7 @@ To run the web query visualisation dashboard, first CORS in GraphDB must be enab
 
 <img width="600" alt="Screenshot 2024-01-04 at 19 50 39" src="https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/488e371e-8320-43eb-bd9e-6f155b595c6a">
 
-Before running the web query visualisation dashboard, the local SPARQL endpoint URL must be specified in the dashboard HTML file, e.g., [vicmap.html](VisualisationDashboard/vicmap.html). 
+Before running the web query visualisation dashboard, the local SPARQL endpoint URL must be specified in the dashboard HTML file, e.g., [vicmap.html](VisualisationDashboard/vicmap_main_050324.html). 
 
 1. In GraphDB, go to Setup -> Repositories
 1. Copy the repository URL to the clipboard using the link icon by the repository to use
