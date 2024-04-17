@@ -76,7 +76,7 @@ In order to run the main.py script, you have to do the following steps:
 	 - Finally, provide the IRI of the rdf file (You can find this in the ontology rdf file (e.g., http://www.semanticweb.org/DV_project#)), it should be successfully imported into the online GraphDB workbench.
 
 - You can find the list of SPARQL queries in the sparql_queries.txt file where you can run those over the imported [KG_State](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=lKYoH1) in GraphDB and retrieve answers.
-- Further competency queries are in development in the [Queries folder](Queries/competency-queries.md). 
+- Further competency queries are in development in the [Queries folder](Queries). 
 
 
 ## AWS EC2 instance
