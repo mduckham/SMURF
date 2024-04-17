@@ -9,11 +9,11 @@ Other files inside the folder include:
 
 Populated knowledge graphs are too large to store on this server. Instead, they are stored on the internal Teams site:
 - [KG10K.rdf](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ERStqVv1vrtMsYziNdFo7rEBMc17wlXNemJKjURucUxEUw?e=2uUUtd): Current version of populated KG with hydro, parcel, and flood datasets for 10K instances (current as of 24.02.13).
-- [KG.rdf](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.rdf?csf=1&web=1&e=dJsJS6): Current version of populated KG with hydro, parcel, and flood datasets for entire state (current as of 24.02.13).
+- [KG.rdf](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW): Current version of populated KG with hydro, parcel, and flood datasets for entire state (current as of 24.02.13).
 
 There is also an archive of older versions on the server:
 
-- [Full KG from 24.02.05](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.240205.rdf?csf=1&web=1&e=2dZdbC)
-- [10K KG from 24.02.05](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG10K.240205.rdf?csf=1&web=1&e=welwRn)
-- [Full KG from 23.11.30](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG.231130.rdf?csf=1&web=1&e=kTeHQ6)
-- [Orphan one, not sure where it came from](https://rmiteduau.sharepoint.com/:u:/r/sites/DynamicVicmapRMITTeam/Shared%20Documents/General/KnowledgeGraphs/KG-unknown.orphan.rdf?csf=1&web=1&e=LzN92K)
+- [Full KG from 24.02.05](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/EQr3tmmrUQ9Iqa_qW1P1PeMBXe_R-g3U_m-cOQS5WLVOrQ?e=dHlfTX)
+- [10K KG from 24.02.05](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ERn5GP-8RbRHrm0oaQZCRhkB248bBEMtdMKhpPz6n4m5qw?e=XnBnZZ)
+- [Full KG from 23.11.30](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/EY8yMarLDdNAnGwGEvZ8S4MBHdx1GelsjwOj8irC41M7sQ?e=tLxdPz)
+- [Orphan one, not sure where it came from](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/EYdY43gm6X9HooBDm7oG0jUBoWZB-2vLBR6JvgbVMmdC8w?e=4Rt0yk)
