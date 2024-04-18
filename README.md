@@ -24,7 +24,7 @@
 
 The below image shows the snapshot of the classes, Object Property (OP), and Data Property (DP) of Vicmap_ontology.rdf where the blue ones are the classes and yellow ones are the DP captured from the previous standardized ontology mentioned above, as well as green ones are DP created by ourselves. 
 
-![test2](https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/f2a2a400-8138-4437-95c5-60658502526b)
+![Ontology_Diagram](StateLevelTest/Ontology/Ontology_Diagram.png)
 
 
 
