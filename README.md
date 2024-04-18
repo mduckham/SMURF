@@ -37,7 +37,7 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over the statewide KG file and retrieve answers. 
 
 In summary, the below chart displays the flowchart of the work including the previous four main steps.
-![flowchart](https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/dee25cb0-77ca-4f34-9574-966ac0e78615)
+![methodology_workflow](StateLevelTest/methodology_workflow.svg)
 
  # Dataset
  The following dataset need to be downloaded to run the script.
