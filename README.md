@@ -101,9 +101,9 @@ To run the web query visualisation dashboard, first CORS in GraphDB must be enab
 1. Open settings in GraphDB desktop
 1. Add a custom Java property: 'graphdb.workbench.cors.enable', value: 'true'
 1. Set the property, then save and restart GraphDB
-1. After GraphDB restart, confirm changes have been applied by checking Help -> System Information -> Configuration parameters. 
+1. After GraphDB restart, confirm changes have been applied by checking Help -> System Information -> Configuration parameters.
 
-<img width="600" alt="Screenshot 2024-01-04 at 19 50 39" src="https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/488e371e-8320-43eb-bd9e-6f155b595c6a">
+[GraphDB_settings](StateLevelTest/GraphDB_settings.png)
 
 Before running the web query visualisation dashboard, the local SPARQL endpoint URL must be specified in the dashboard HTML file, e.g., [vicmap.html](VisualisationDashboard/vicmap_main_050324.html). 
 
