@@ -128,7 +128,7 @@ The below image shows the web query visualisation dashboard which has the follow
 
 You can access the public URL link for the map in [here](https://dev6431.d2v2xgrg7bgqzr.amplifyapp.com/).
 
-<img width="1458" alt="Screenshot 2024-02-19 at 22 05 51" src="https://github.com/MohammadUT/Dynamic-Vicmap/assets/35190148/4868681a-70fb-45f0-b610-34b5845be92c">
+![Vis_Query_Dashboard](VisualisationDashboard/Vis_Query_Dashboard.png)
 
 ## Contributors
 - Mohammad Kazemi Beydokhti (mohammad.beydokhti@rmit.edu.au)
