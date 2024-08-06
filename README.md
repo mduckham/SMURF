@@ -1,7 +1,10 @@
-# Dynamic Vicmap
- This is the repository of source codes and datasets for the Dynamic Vicmap project at the state level. The code has been tested on Victoria state, Australia, and Water_Hydro_Dataset. This process has three main steps:
+# SMURF: Spatial management, update, and revision framework
+This is the repository of source codes and datasets for SMURF (spatial management, update, and revision framework), a common ontological core to support enrichment of foundation spatial data with semantics. The project grew out of the Dynamic Vicmap project: a collaboration between the [http://geosensor.net/gkl/](RMIT Geographic Knowledge Lab), [https://frontiersi.com.au/](FrontierSI), Victorian Government Spatial Services, and the [https://smartsatcrc.com/](SmartSat CRC). The Dynamic Vicmap project tested out SMURF by building a Victorian statewide semantically annotated hydrological knowledge graph, which can be downloaded from this site. 
 
-1. **Ontology Engineering**: The ontology [DV_project](StateLevelTest/Ontology/DV_project.rdf) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
+## Semantic data enrichment
+Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending conventional spatial data and data models with additional ontological structure that provides meaning, background, and context. The semantic dada enrichment process typically has three steps. 
+ 
+1. **Ontology Engineering**: The SMURF ontology [DV_project](StateLevelTest/Ontology/DV_project.rdf) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
    
 	- Vicmap_ontology:  http://www.semanticweb.org/mkazemi/ontologies/2023/9/Ontology_Vicmap2#
 	- prov: http://www.w3.org/ns/prov#
