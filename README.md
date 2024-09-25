@@ -129,7 +129,7 @@ The below image shows the web query visualisation dashboard which has the follow
 - GeoSPARQL endpoint 
 - Map view to show the GeoSPARQL results on map
 
-You can access the public URL link for the map in [here](https://staging.d7eba651akmya.amplifyapp.com/).
+You can access the public URL link for the map in [here](https://staging.d7eba651akmya.amplifyapp.com/). Currently the dashboard is inactive, but to check user interaction with our web query visualisation dashbaord watch this [video](https://www.youtube.com/watch?v=TlwnLCJ4Isg). For more info please contact the listed contributours below. 
 
 ![Vis_Query_Dashboard](VisualisationDashboard/Vis_Query_Dashboard.png)
 
