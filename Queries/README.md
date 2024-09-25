@@ -422,7 +422,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -475,7 +475,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -527,7 +527,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -594,7 +594,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -649,7 +649,7 @@ WHERE  {
                      geosparql:hasGeometry ?geometry2.
         ?geometry2 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -671,7 +671,7 @@ WHERE
                      geosparql:hasGeometry ?geometry2.
         ?geometry2 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
                 Ontology_Vicmap:isCrown true;
 				Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
@@ -699,7 +699,7 @@ WHERE
                      geosparql:hasGeometry ?geometry1.
          ?geometry1 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
                 Ontology_Vicmap:isCrown true;
 				Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
@@ -752,7 +752,7 @@ WHERE
                      geosparql:hasGeometry ?geometry1.
          ?geometry1 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
                 Ontology_Vicmap:isCrown true;
 				Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
@@ -795,7 +795,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -842,7 +842,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasPFI ?ufi;
+                Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
                 Ontology_Vicmap:createDate ?createdate;
                 Ontology_Vicmap:geometryCoordinates ?geometry_coord;
@@ -1170,7 +1170,7 @@ WHERE {
 		geosparql:hasGeometry ?geometry.
 	?geometry rdf:type geosparql:Geometry ;
 		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasPFI ?ufi;
+		Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
 		Ontology_Vicmap:createDate ?createdate;
 		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
@@ -1207,7 +1207,7 @@ WHERE{
 		geosparql:hasGeometry ?geometry.
     ?geometry rdf:type geosparql:Geometry ;
     	Ontology_Vicmap:hasPFI ?pfi;
-    	Ontology_Vicmap:hasPFI ?ufi;
+    	Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
         Ontology_Vicmap:createDate ?createdate;
         Ontology_Vicmap:geometryCoordinates ?geometry_coord.
@@ -1234,7 +1234,7 @@ WHERE{
 		geosparql:hasGeometry ?geometry.
     ?geometry rdf:type geosparql:Geometry ;
     	Ontology_Vicmap:hasPFI ?pfi;
-    	Ontology_Vicmap:hasPFI ?ufi;
+    	Ontology_Vicmap:hasUFI ?ufi;
 		Ontology_Vicmap:varietyOf ?ftype;
         Ontology_Vicmap:createDate ?createdate;
 		Ontology_Vicmap:hasGeometryProvenance ?geomprov;
