@@ -1,12 +1,12 @@
 # SMURF: Spatial management, update, and revision framework
-This is the repository of source codes and datasets for SMURF (spatial management, update, and revision framework), a common ontological core to support enrichment of foundation spatial data with semantics. The project grew out of the Dynamic Vicmap project: a collaboration between the [http://geosensor.net/gkl/](RMIT Geographic Knowledge Lab), [https://frontiersi.com.au/](FrontierSI), Victorian Government Spatial Services, and the [https://smartsatcrc.com/](SmartSat CRC). The Dynamic Vicmap project tested out SMURF by building a Victorian statewide semantically annotated hydrological knowledge graph, which can be downloaded from this site. 
+This is the repository of source codes and datasets for SMURF (spatial management, update, and revision framework): a common ontological core to support enrichment of foundation spatial data with semantics. The project grew out of the Dynamic Vicmap project---a collaboration between the [RMIT Geographic Knowledge Lab](http://geosensor.net/gkl/), [FrontierSI](https://frontiersi.com.au/), Victorian Government Spatial Services, and the [SmartSat CRC](https://smartsatcrc.com/). The Dynamic Vicmap project tested out SMURF by building a Victorian statewide semantically annotated hydrological knowledge graph, which can be downloaded from this site. 
 
 ## Semantic data enrichment
 Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending conventional spatial data and data models with additional ontological structure that provides meaning, background, and context. The semantic dada enrichment process typically has four stages. 
  
-1. **Ontology Engineering**: The SMURF ontology [DV_project](StateLevelTest/Ontology/DV_project.rdf) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
+1. **Ontology Engineering**: The [SMURF ontology](StateLevelTest/Ontology/smurf.ttl) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
    
-	- Vicmap_ontology:  http://www.semanticweb.org/mkazemi/ontologies/2023/9/Ontology_Vicmap2#
+	- smurf: http://geosensor.net/SMURF#
 	- prov: http://www.w3.org/ns/prov#
 	- foaf: http://xmlns.com/foaf/0.1/
 	- xsd_ns: http://www.w3.org/2001/XMLSchema#
@@ -36,7 +36,7 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 	 - *Embedded rules:* There are mainly two rules embedded in the script for creating waterbody instances: 1) Intersection: when two polygons are intersected, then they are for the same waterbody. 2) Buffer: when a point within a buffer of a specific distance (e.g., 10m) of a polygon, then the point and polygon are two representations of the same waterbody.
 	 - *Creating waterbody instances*: In the final step, the embedded rules are applied to the pre-processed data to return the final waterbody instances (wb_instances). Each waterbody instance shows whether it has a single or multiple representation. 
 
-3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the Vicmap_Ontology.rdf ontology to create the Knowledge Graph (KG) of the state of Victoria ([KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW)).
+3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the Vicmap_Ontology.rdf ontology to create the Knowledge Graph (KG) of the state of Victoria ([full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0)).
 4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over the statewide KG file and retrieve answers. 
 
 In summary, the below chart displays the flowchart of the work including the previous four main steps.
