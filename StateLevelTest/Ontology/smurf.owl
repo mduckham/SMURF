@@ -1,4 +1,4 @@
-@prefix : <http://geosensor.net/SMURF#> .
+@prefix smurf: <http://geosensor.net/SMURF#> .
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
