@@ -1027,7 +1027,7 @@ LIMIT 100
 ```
 
 Consequently, a simple query to show only the wetland swamps would be:
-
+25) Can you show all wetland swamp areas in Victoria?
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
@@ -1046,7 +1046,7 @@ LIMIT 100
 ```
 
 Or to retrieve waterbody 8094:
-
+26) Can you retreive waterbody with name wb8094?
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
@@ -1059,12 +1059,12 @@ WHERE {
 		Ontology_Vicmap:varietyOf ?ftype;
 		Ontology_Vicmap:createDate ?createdate;
 		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
-    FILTER(STRAFTER(STR(?wb_instance), '#') = 'wb8098').
+    FILTER(STRAFTER(STR(?wb_instance), '#') = 'wb8094').
 }
 LIMIT 100
 ```
 
-A helpful query for a layer: 
+27) A helpful query for a layer: Can you show data set with the title 'HY_WATER_AREA_ML'?
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
@@ -1084,7 +1084,7 @@ WHERE {
 LIMIT 100
 ```
 
-There is also a flexible second tab in the popup enabled. Anything passed back with the optional ?auxname and ?auxcontent parameters will appear in the second tab of the popup (under the "Metadata" tab). For example, the following query will populate the second tab with the coordinates of the feature. 
+28) There is also a flexible second tab in the popup enabled. Anything passed back with the optional ?auxname and ?auxcontent parameters will appear in the second tab of the popup (under the "Metadata" tab). For example, the following query will populate the second tab with the coordinates of the feature. 
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord ?auxname ?auxcontent WHERE {
@@ -1103,7 +1103,7 @@ BIND(?geometry_coord AS ?auxcontent)
 
 ## The queries in this section are all connected with multiple geometric representations of features. 
 
-25) Show all the waterbodies with multiple geometry representations?
+29) Show all the waterbodies with multiple geometry representations?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?debug)
@@ -1124,7 +1124,7 @@ WHERE {
 LIMIT 500
 ```
 
- 26) Show all the waterbodies with both point and polygon representations. 
+30) Show all the waterbodies with both point and polygon representations. 
 
 Note that "LIMIT" won't work with this query, because we won't necessarily get matching point-polygon representations. Instead, the approach is to limit by waterbodyID (between 1000 and 2000, note this query may be slow): 
 
@@ -1152,7 +1152,7 @@ WHERE {
 }
 ```
 
-  27) Show all the waterbodies with both point and polygon representations (alternative)
+31) Show all the waterbodies with both point and polygon representations (alternative)
 
 An alternative formulation uses a nested query that will show water bodies with point and polygon representations where point features have 'wb_dam' and polygon features have 'wb_lake' feature types:
 
@@ -1189,7 +1189,7 @@ WHERE {
 
 ## Multiple data set queries
 
-  28) Identify dams and lakes that are located within the crown land with pfi of 45541397?
+32) Identify dams and lakes that are located within the crown land with pfi of 45541397?
 
 This query spans the crown land and hydro data sets, using a spatial join. 
 
@@ -1218,7 +1218,7 @@ WHERE{
 
 ```
 
-  29) Identify the geometries in specific data sets associated with waterbody 3391
+33) Identify the geometries in specific data sets associated with waterbody 3391
 
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
@@ -1243,7 +1243,7 @@ WHERE{
 
 ## Metadata queries
 
-30) Identify dataset and source of geometries with pfi of 8136595 in different data sets?
+34) Identify dataset and source of geometries with pfi of 8136595 in different data sets?
 
 
 ```
@@ -1265,8 +1265,6 @@ WHERE  {
 }
 ```
 
-
-
 ## Indexing GraphDB
 
 ### Check indexing status
@@ -1280,7 +1278,6 @@ SELECT DISTINCT ?tree ?precision ?enab WHERE {
         geosparql:enabled ?enab
 }
 ```
-
 
 ### Set indexing on
 
