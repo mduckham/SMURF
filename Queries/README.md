@@ -6,7 +6,7 @@ The following queries assume this preamble. Note that in the latest version of [
 
 ```
 PREFIX onto: <http://www.ontotext.com/>
-PREFIX smurf:<http://www.semanticweb.org/DV_project#>
+PREFIX smurf:<http://geosensor.net/SMURF#>
 PREFIX dcam:<http://purl.org/dc/dcam/>
 PREFIX dcat:<http://www.w3.org/ns/dcat#>
 PREFIX dqv:<http://www.w3.org/ns/dqv#>
