@@ -28,7 +28,7 @@ PREFIX ext: <http://rdf.useekm.com/ext#>
 
 ```
 
-## A set of example queries for DTP:
+## A set of example queries:
 
 1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies located within the City of Greater Shepparton?
 
@@ -159,7 +159,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  C
 
 ```
 
-4) Can you display waterbody lakes that are on the Vicmap crown land parcel with specific PFI = 52490156?
+4) Can you display waterbody lakes that are on the Vicmap crown land parcel that has specific permanent feature identifier (PFI) with number 52490156?
 
    Description: this query retrieves waterbody lakes within a specific Vicmap property with the PFI specified in the question. It shows multiple waterbody lakes on one 
    parcel that belongs to the crown land. The execution and visualization of this query takes around 2.5 minutes. Computational time for the query execution is delayed due 
@@ -511,12 +511,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
 } 
 
 ```
-
-
-## Example queries for the DV showcase on the 22nd of February 2024:
-
-
-1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies?
+12) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -561,7 +556,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
 LIMIT 100
 ```
 
-2) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
+13) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -583,7 +578,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 }
 ```
 
-3) Can you show multiple geometry representations (point and polygon) of waterbodies included in both Vicmap Hydro and ML data sets?
+14) Can you show multiple geometry representations (point and polygon) of waterbodies included in both Vicmap Hydro and ML data sets?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -632,7 +627,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  C
 }
 ```
 
-4) Can you display waterbody lakes that are on the Vicmap crown land parcel with specific PFI = 52490156?
+15) Can you display waterbody lakes that are on the Vicmap crown land parcel with specific PFI = 52490156?
 
 ```
 SELECT 
@@ -661,7 +656,7 @@ WHERE  {
 }
 
 ```
- 5) Can you display all Vicmap crown land parcels that are within machine learned spatial data extent?
+ 16) Can you display all Vicmap crown land parcels that are within machine learned spatial data extent?
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
 
@@ -684,7 +679,7 @@ WHERE
     }
 ```
    
-6) On which Vicmap parcels one or more new waterbodies (farm dams, reservoirs, etc) have been developed in the last year?
+17) On which Vicmap parcels one or more new waterbodies (farm dams, reservoirs, etc) have been developed in the last year?
 
    
 ```
@@ -738,7 +733,7 @@ WHERE
     
 ```
    
-7) Can you show Victorian properties that have been flooded in last 5 years?
+18) Can you show Victorian properties that have been flooded in last 5 years?
 
 ```
 
@@ -784,7 +779,7 @@ WHERE
 }
 ```
    
-8) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in last year?
+19) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in last year?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -831,7 +826,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
 }
 ```
 
-9) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
+20) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -877,7 +872,7 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
     }
 }
 ``` 
-10) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last year?
+21) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last year?
  
 
 ```
@@ -938,7 +933,7 @@ where
 }
 ```
 
-11) What are the areas prone to flooding for the Vicmap parcel with PFI = 45537811?
+22) What are the areas prone to flooding for the Vicmap parcel that has permanent feature identifier (PFI) with number 45537811?
 
 ```
 select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
@@ -994,7 +989,7 @@ where
 }
 ```
 
-12) What is source information for retrieved spatial feature?
+23) What is source information for retrieved spatial feature?
 
 ```
 SELECT ?pfi ?createdate ?ftype ?ufi ?geometry_coord ?auxname ?auxcontent
@@ -1014,7 +1009,7 @@ WHERE  {
 ```
 
 
-## The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_textbox.html) is: 
+24) The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_textbox.html) is: 
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
@@ -1106,11 +1101,9 @@ BIND(?geometry_coord AS ?auxcontent)
 } LIMIT 100
 ```
 
-## Multiple geometry representations
+## The queries in this section are all connected with multiple geometric representations of features. 
 
-The queries in this section are all connected with multiple geometric representations of features. 
-
-### Show all the waterbodies with multiple geometry representations
+25) Show all the waterbodies with multiple geometry representations?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?debug)
@@ -1131,7 +1124,7 @@ WHERE {
 LIMIT 500
 ```
 
-### Show all the waterbodies with both point and polygon representations. 
+ 26) Show all the waterbodies with both point and polygon representations. 
 
 Note that "LIMIT" won't work with this query, because we won't necessarily get matching point-polygon representations. Instead, the approach is to limit by waterbodyID (between 1000 and 2000, note this query may be slow): 
 
@@ -1159,7 +1152,7 @@ WHERE {
 }
 ```
 
-### Show all the waterbodies with both point and polygon representations (alternative)
+  27) Show all the waterbodies with both point and polygon representations (alternative)
 
 An alternative formulation uses a nested query that will show water bodies with point and polygon representations where point features have 'wb_dam' and polygon features have 'wb_lake' feature types:
 
@@ -1196,7 +1189,7 @@ WHERE {
 
 ## Multiple data set queries
 
-### Identify dams and lakes that are located within the crown land with pfi of 45541397?
+  28) Identify dams and lakes that are located within the crown land with pfi of 45541397?
 
 This query spans the crown land and hydro data sets, using a spatial join. 
 
@@ -1225,7 +1218,7 @@ WHERE{
 
 ```
 
-### Identify the geometries in specific data sets associated with waterbody 3391
+  29) Identify the geometries in specific data sets associated with waterbody 3391
 
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
@@ -1250,7 +1243,7 @@ WHERE{
 
 ## Metadata queries
 
-### Identify dataset and source of geometries with pfi of 8136595 in different data sets?
+30) Identify dataset and source of geometries with pfi of 8136595 in different data sets?
 
 
 ```
