@@ -1009,7 +1009,7 @@ WHERE  {
 ```
 
 
-24) The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_textbox.html) is: 
+24) The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_main_050324.html) is: 
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
