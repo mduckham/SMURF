@@ -1,9 +1,3 @@
-## Questions for the showcase on the 22nd of February 2024:
-1)	How many small dams and reservoirs are located within the crown land? 
-2)	Can you identify all parcels on which one or more new farm dams or reservoirs have been developed in last year?
-3)	How many of properties has been flooded in last 5 years?
-4)	How many dams and reservoirs have increased in their size in last 5 years?
-   
 
 ## Questions related to multiple geometries representations:  
 
@@ -15,7 +9,7 @@
 
 •	What are the unique feature identifiers (UFI) of a specific water body that is represented with both point and polygon geometries?
 
-•	What are the UFIs of a specific water body that is represented with multiple polygon representations?
+•	What are the unique deature identifiers (UFI) of a specific water body that is represented with multiple polygon representations?
 
 •	Which authoritative and coincident water bodies have different feature type codes (for example one is water dam and other is lake)? 
 
@@ -29,6 +23,14 @@
 •	What is the difference in water area of a specific water body that is represented with multiple polygon geometries?
 
 •	What is the list of water bodies that experienced significant increase of water area in last 12 months (or since last update)?
+
+•  How many dams and reservoirs have increased in their size in last 5 years?
+
+•  Can you identify all parcels on which one or more new farm dams or reservoirs have been developed in last year?
+
+•  How many of properties has been flooded in last 5 years?
+
+•	How many small dams and reservoirs are located within the crown land? 
 
 
 ## Questions related to provenance and quality of Vicmap hydro data:  
