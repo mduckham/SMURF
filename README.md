@@ -40,7 +40,7 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over the statewide KG file and retrieve answers. 
 
 In summary, the below chart displays the flowchart of the work including the previous four main steps.
-![methodology_workflow](StateLevelTest/methodology_workflow.svg)
+![methodology_workflow](Methodology_and_Scripts/methodology_workflow.svg)
 
  # Dataset
  The following dataset need to be downloaded to run the script.
