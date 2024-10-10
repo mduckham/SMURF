@@ -2,7 +2,7 @@
 
 
 Other files inside the folder include:
-- [Ontology](../Ontology/) folder: Includes the list of standard ontology used in this work. The core DynamicVicmap ontology created for this project is [smurf.ttl](SMURF/Ontology/smurf.ttl).
+- [Ontology](../Ontology/) folder: Includes the list of standard ontology used in this work. The core DynamicVicmap ontology created for this project is [smurf.ttl](../Ontology/smurf.ttl).
 - [Vicmap](VicmapDatasets/) data set: List of data sets integrated in to the KG (please refer to the [Readme.md](../README.md) for downloading them) and metadata info for each dataset.
 - Python scripts: for creating wb_instances and integrating flood and parcel dataset into it [data_process.py](data_process.py) and populating instances KG for the whole state of Victoria. 
 
