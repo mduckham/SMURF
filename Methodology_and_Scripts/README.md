@@ -1,4 +1,4 @@
-﻿This folder includes the files and information related to data processing stage and populating the full knowldge graph ([see workflow methdology diagram](/workflow_methodology.svg)) for the entire state of Victoria, specifically: 
+﻿This folder includes the files and information related to data processing stage and populating the full knowldge graph ([see workflow methdology diagram](Methodology_and_Scripts/methodology_workflow.svg)) for the entire state of Victoria, specifically: 
 
 - Python scripts: for creating wb_instances and integrating flood and parcel dataset into it [data_process.py](data_process.py) and populating instances KG for the whole state of Victoria. 
 
