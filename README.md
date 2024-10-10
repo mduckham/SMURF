@@ -67,12 +67,12 @@ Dependencies:
 In order to run the main.py script, you have to do the following steps:
 - Importing data: the above dataset is fed as input.
 - Create wb_instances: This step will create wb_instances.pickle file.
-- Creating KG: Our ontology (Ontology_Vicmap.rdf) in the Ontology folder is defined as input along with their Namespaces. Secondly, metadata files are defined for four dataset layers based on the ontology. Finally, the wb_instances created from the previous steps are populated into our ontology and return the [KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW) file as output.
+- Creating KG: Our ontology (Ontology_Vicmap.rdf) in the Ontology folder is defined as input along with their Namespaces. Secondly, metadata files are defined for four dataset layers based on the ontology. Finally, the wb_instances created from the previous steps are populated into our ontology and return the [full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0) file as output.
 
 
 ## Queries
 
- - Importing large rdf file into GraphDB: The created [KG_State](https://rmiteduau-my.sharepoint.com/:u:/g/personal/matt_duckham_rmit_edu_au/ESlpulzIWYxLv4pF67XXrHEB5KQzPwV4WOvb-AY3rXTLqg?e=PY6LrW) file is around 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
+ - Importing large rdf file into GraphDB: The created [full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0) file is over 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
 	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
