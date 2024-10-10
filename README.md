@@ -27,7 +27,7 @@ Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending
 
 The below image shows the snapshot of the classes, Object Property (OP), and Data Property (DP) of Vicmap_ontology.rdf where the blue ones are the classes and yellow ones are the DP captured from the previous standardized ontology mentioned above, as well as green ones are DP created by ourselves. 
 
-![Ontology Diagram](Ontology/Ontology Diagram.png)
+![Ontology Diagram](Ontology/OntologyDiagram.png)
 
 
 
