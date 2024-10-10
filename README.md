@@ -45,14 +45,13 @@ In summary, the below chart displays the flowchart of the work including the pre
  # Dataset
  The following dataset need to be downloaded to run the script.
 
- - Waterbody hydro water polygon (HY_WATER_AREA_POLYGON_GeomChecked.shp): download from [here](https://discover.data.vic.gov.au/dataset/vicmap-hydro-water-polygon).
- - Waterbody hydro water point (HY_WATER_AREA_POLYGON.shp): download from [here](https://discover.data.vic.gov.au/dataset/vicmap-hydro-water-point).
- - Waterbody captured from ML (DamPredictions_Preliminary_V2.shp): download from [here](https://sisranz.sharepoint.com/:f:/r/sites/Projects/Shared%20Documents/Projects%20-%20Data%20Analytics/2083%20SmartSat%20Vic%20Node/Dynamic%20Vicmap%20Working%20Directory/Project%20Data%20Catalogue/DamPredictions_Preliminary_ML_Dataset_30_08_2023?csf=1&web=1&e=DqkDeL).
- - Waterbody captured from LIDAR (bendigo_2020mar05_lakes_mga55.shp): download from [here](https://sisranz.sharepoint.com/:f:/r/sites/Projects/Shared%20Documents/Projects%20-%20Data%20Analytics/2083%20SmartSat%20Vic%20Node/Dynamic%20Vicmap%20Working%20Directory/Project%20Data%20Catalogue/Bendigo_Hydro_Lakes_LiDAR_Dataset_mga55-05-03-2020?csf=1&web=1&e=xV5GkC)
-
+ - Waterbody hydro water polygon (HY_WATER_AREA_POLYGON_GeomChecked.shp): download from [here](to be updated).
+ - Waterbody hydro water point (HY_WATER_AREA_POINT.shp): download from [here](https://discover.data.vic.gov.au/dataset/vicmap-hydro-water-point).
+ - Waterbody captured from ML (DamPredictions_Preliminary_V2.shp): download from [here](https://rmiteduau-my.sharepoint.com/:u:/g/personal/nenad_radosevic_rmit_edu_au/EQGB5ZyyKCtKsLczxO96GwkBznVpzB6lTGPj2sa4VIa5Eg?e=xe5h9h).
+ - Waterbody captured from LIDAR (bendigo_2020mar05_lakes_mga55.shp): download from [here](https://rmiteduau-my.sharepoint.com/:u:/g/personal/nenad_radosevic_rmit_edu_au/Eebskm02t1NBk2E0w8e2a3AB3FqG9FKk8rn5tZoxEhdTdw?e=jikE6g)
  - Victoria Parcels (Vicmap_Parcels.shp): download from [here](https://discover.data.vic.gov.au/dataset/vicmap-property-property-polygon).
  - Authoritative Floods (VIC_FLOOD_HISTORY_PUBLIC.shp): download from [here](https://discover.data.vic.gov.au/dataset/victorian-flood-history-october-2022-event-public).
- - Non-Authoritative Flood (FullFloodExtents_25Jan_Detailed.shp): download from [here](https://sisranz.sharepoint.com/:u:/r/sites/Projects/Shared%20Documents/Projects%20-%20Data%20Analytics/2083%20SmartSat%20Vic%20Node/Dynamic%20Vicmap%20Working%20Directory/Project%20Data%20Catalogue/Flood_Extent_Jan_2023_received_from_Vicmap_non_authoritative.zip?csf=1&web=1&e=FIuSOZ)
+ - Non-Authoritative Flood (FullFloodExtents_25Jan_Detailed.shp): download from [here](https://rmiteduau-my.sharepoint.com/:u:/g/personal/nenad_radosevic_rmit_edu_au/EbJygO1VBe9IoEbXnu3x5UsBpXscEmVcsOmZU5w4P1jUhw?e=i72dgO)
 
 # Installation
 Dependencies:
