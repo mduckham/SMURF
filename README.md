@@ -77,7 +77,7 @@ In order to run the main.py script, you have to do the following steps:
 	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
-	 - Finally, provide the IRI of the rdf file (You can find this in [the ontology rdf file](StateLevelTest/Ontology/DV_project.rdf) (line 2 in the rdf file), it should be successfully imported into the online GraphDB workbench.
+	 - Finally, provide the IRI of the rdf file (You can find this in [the smurf.ttl file](../Ontology/smurf.ttl) (line 1 in the file), it should be successfully imported into the online GraphDB workbench.
 
 - You can find the list of SPARQL queries in the in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG for the whole state) in GraphDB and retrieve answers.
  
