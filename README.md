@@ -36,7 +36,7 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 	 - *Embedded rules:* There are mainly two rules embedded in the script for creating waterbody instances: 1) Intersection: when two polygons are intersected, then they are for the same waterbody. 2) Buffer: when a point within a buffer of a specific distance (e.g., 10m) of a polygon, then the point and polygon are two representations of the same waterbody.
 	 - *Creating waterbody instances*: In the final step, the embedded rules are applied to the pre-processed data to return the final waterbody instances (wb_instances). Each waterbody instance shows whether it has a single or multiple representation. 
 
-3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the Vicmap_Ontology.rdf ontology to create the Knowledge Graph (KG) of the state of Victoria ([full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0)).
+3. **Building Knowledge Graph (KG)**: The wb_instances are populated into the SMURF ontology to create the Knowledge Graph (KG) of the state of Victoria ([full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0)).
 4. **Smart Queries**: By translating the intended questions in natural language into SPARQL language, we will be able to run them over the statewide KG file and retrieve answers. 
 
 In summary, the below chart displays the flowchart of the work including the previous four main steps.
