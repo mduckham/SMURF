@@ -25,7 +25,7 @@ Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending
 	- cube: http://purl.org/linked-data/cube#
 	- fsdf: https://linked.data.gov.au/def/fsdf/
 
-The below image shows the snapshot of the classes, Object Property (OP), and Data Property (DP) of Vicmap_ontology.rdf where the blue ones are the classes and yellow ones are the DP captured from the previous standardized ontology mentioned above, as well as green ones are DP created by ourselves. 
+The below image shows the snapshot of the classes, Object Property (OP), and Data Property (DP) of the SMURF vocabulary where the blue ones are the classes and yellow ones are the DP captured from the previous standardized ontology mentioned above, as well as green ones are DP created by ourselves. 
 
 ![Ontology Diagram](Ontology/OntologyDiagram.png)
 
