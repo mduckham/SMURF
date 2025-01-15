@@ -4,9 +4,9 @@ This is the repository of source codes and datasets for SMURF (spatial managemen
 ## Semantic data enrichment
 Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending conventional spatial data and data models with additional ontological structure that provides meaning, background, and context. The semantic dada enrichment process typically has four stages. 
  
-1. **Ontology Engineering**: The [SMURF ontology](Ontology/SMURF.ttl) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
+1. **Ontology Engineering**: The [SMURF ontology](Ontology/SMURF.ttl) (in [Turtle](Ontology/SMURF.ttl) or [RDF](Ontology/SMURF.rdf)) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
    
-	- smurf: http://geosensor.net/SMURF#
+	- smurf: http://geosensor.net/ns/SMURF#
 	- prov: http://www.w3.org/ns/prov#
 	- foaf: http://xmlns.com/foaf/0.1/
 	- xsd_ns: http://www.w3.org/2001/XMLSchema#
@@ -21,7 +21,7 @@ Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending
 	- dqv: http://www.w3.org/ns/dqv#
 	- dcat: http://www.w3.org/ns/dcat#
 	- geosparql: http://www.opengis.net/ont/geosparql#
-	- ns: http://www.w3.org/2006/vcard/ns#
+	- vcard: http://www.w3.org/2006/vcard/ns#
 	- cube: http://purl.org/linked-data/cube#
 	- fsdf: https://linked.data.gov.au/def/fsdf/
 
@@ -76,7 +76,7 @@ In order to run the main.py script, you have to do the following steps:
 	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
-	 - Finally, provide the IRI of the rdf file (You can find this in [the smurf.ttl file](/Ontology/smurf.ttl) (line 1 in the file), it should be successfully imported into the online GraphDB workbench.
+	 - Finally, provide the IRI of the rdf file (You can find this in the [SMURF Turtle](/Ontology/SMURF.ttl) or [RDF](/Ontology/SMURF.rdf) file (line 1 in the file), it should be successfully imported into the online GraphDB workbench.
 
 - You can find the list of SPARQL queries in the in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG for the whole state) in GraphDB and retrieve answers.
  
