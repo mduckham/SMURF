@@ -44,7 +44,7 @@
     <!-- http://geosensor.net/ns/SMURF#hasGeometryProvenance -->
 
     <owl:ObjectProperty rdf:about="http://geosensor.net/ns/SMURF#hasGeometryProvenance">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasInfluencedBy"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasDerivedFrom"/>
         <rdfs:domain rdf:resource="http://www.opengis.net/ont/geosparql#Geometry"/>
         <rdfs:range rdf:resource="http://purl.org/linked-data/cube#DataSet"/>
         <rdfs:comment xml:lang="en">hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPARQL Geometry in terms of a DCAT Dataset instance.</rdfs:comment>
