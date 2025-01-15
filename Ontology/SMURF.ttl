@@ -1,0 +1,233 @@
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://geosensor.net/ns/SMURF#> .
+
+<http://geosensor.net/ns/SMURF> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3.org/2004/02/skos/core#definition
+<http://www.w3.org/2004/02/skos/core#definition> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#example
+<http://www.w3.org/2004/02/skos/core#example> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#category
+<http://www.w3.org/ns/prov#category> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#component
+<http://www.w3.org/ns/prov#component> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#definition
+<http://www.w3.org/ns/prov#definition> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#inverse
+<http://www.w3.org/ns/prov#inverse> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/ns/prov#qualifiedForm
+<http://www.w3.org/ns/prov#qualifiedForm> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#wktLiteral
+geo:wktLiteral rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://geosensor.net/ns/SMURF#hasGeometryProvenance
+:hasGeometryProvenance rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasDerivedFrom> ;
+                       rdfs:domain geo:Geometry ;
+                       rdfs:range dcat:Dataset ;
+                       rdfs:comment "hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPAQL Geometry in terms of a DCAT Dataset instance."@en ;
+                       rdfs:label "hasGeometryProvenance"@en ;
+                       <http://www.w3.org/2004/02/skos/core#definition> "hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPAQL Geometry in terms of a DCAT Dataset instance."@en ;
+                       <http://www.w3.org/2004/02/skos/core#example> "Geometry x is from (hahsGeometryProvenance) Dataset y"@en .
+
+
+###  http://www.w3.org/ns/prov#wasDerivedFrom
+<http://www.w3.org/ns/prov#wasDerivedFrom> rdf:type owl:ObjectProperty ;
+                                           rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasInfluencedBy> ;
+                                           rdfs:domain <http://www.w3.org/ns/prov#Entity> ;
+                                           rdfs:range <http://www.w3.org/ns/prov#Entity> ;
+                                           rdfs:comment "The more specific subproperties of prov:wasDerivedFrom (i.e., prov:wasQuotedFrom, prov:wasRevisionOf, prov:hadPrimarySource) should be used when applicable."@en ;
+                                           rdfs:isDefinedBy <http://www.w3.org/ns/prov-o#> ;
+                                           rdfs:label "wasDerivedFrom" ;
+                                           <http://www.w3.org/ns/prov#category> "starting-point" ;
+                                           <http://www.w3.org/ns/prov#component> "derivations" ;
+                                           <http://www.w3.org/ns/prov#definition> "A derivation is a transformation of an entity into another, an update of an entity resulting in a new one, or the construction of a new entity based on a pre-existing entity."@en ;
+                                           <http://www.w3.org/ns/prov#inverse> "hadDerivation" ;
+                                           <http://www.w3.org/ns/prov#qualifiedForm> <http://www.w3.org/ns/prov#Derivation> ,
+                                                                                     <http://www.w3.org/ns/prov#qualifiedDerivation> .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource <http://www.w3.org/ns/prov#wasDerivedFrom> ;
+   owl:annotatedProperty rdfs:subPropertyOf ;
+   owl:annotatedTarget <http://www.w3.org/ns/prov#wasInfluencedBy> ;
+   rdfs:comment "Derivation is a particular case of trace (see http://www.w3.org/TR/prov-dm/#term-trace), since it links an entity to another entity that contributed to its existence."
+ ] .
+
+
+###  http://www.w3.org/ns/prov#wasInfluencedBy
+<http://www.w3.org/ns/prov#wasInfluencedBy> rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#asWKT
+geo:asWKT rdf:type owl:DatatypeProperty .
+
+
+###  #createDate
+:createDate rdf:type owl:DatatypeProperty ;
+            rdfs:domain geo:Geometry ;
+            rdfs:range xsd:date ;
+            rdfs:comment "The date on which this Geometry was created"@en ;
+            rdfs:label "Creation date"@en ;
+            <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
+
+
+###  http://geosensor.net/ns/SMURF#geometryCoordinates
+:geometryCoordinates rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf geo:asWKT ;
+                     rdfs:domain geo:Geometry ;
+                     rdfs:range geo:wktLiteral ;
+                     rdfs:comment "WKT geometry coordinates for a Geometry instance"@en ;
+                     rdfs:label "Geometry coordinates"@en ;
+                     <http://www.w3.org/2004/02/skos/core#definition> "WKT geometry coordinates for a Geometry instance"@en .
+
+
+###  http://geosensor.net/ns/SMURF#hasPFI
+:hasPFI rdf:type owl:DatatypeProperty ;
+        rdfs:domain geo:Geometry ;
+        rdfs:range xsd:integer ;
+        rdfs:comment "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en ;
+        rdfs:label "Has PFI (persistent feature identifier)"@en ;
+        <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en .
+
+
+###  http://geosensor.net/ns/SMURF#hasUFI
+:hasUFI rdf:type owl:DatatypeProperty ;
+        rdfs:domain geo:Geometry ;
+        rdfs:range xsd:integer ;
+        rdfs:comment "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en ;
+        rdfs:label "Has UFI (unique feature identifier)"@en ;
+        <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en .
+
+
+###  http://geosensor.net/ns/SMURF#isAuthoritativeData
+:isAuthoritativeData rdf:type owl:DatatypeProperty ;
+                     rdfs:domain dqv:QualityMeasurement ;
+                     rdfs:range xsd:boolean ;
+                     rdfs:comment "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en ;
+                     rdfs:label "Is authoritative data version"@en ;
+                     <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
+
+
+###  http://geosensor.net/ns/SMURF#isCrown
+:isCrown rdf:type owl:DatatypeProperty ;
+         rdfs:domain geo:Geometry ;
+         rdfs:range xsd:boolean ;
+         rdfs:comment "Flag to indicate if this data item is a Crown land (true) or not (false)"@en ;
+         rdfs:label "Is Crown"@en ;
+         <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
+
+
+###  http://geosensor.net/ns/SMURF#organizationemail
+:organizationemail rdf:type owl:DatatypeProperty ;
+                   rdfs:domain <http://www.w3.org/ns/prov#Organization> ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Organization email address"@en ;
+                   rdfs:label "Organization email"@en ;
+                   <http://www.w3.org/2004/02/skos/core#definition> "Organization email address"@en .
+
+
+###  http://geosensor.net/ns/SMURF#personalemail
+:personalemail rdf:type owl:DatatypeProperty ;
+               rdfs:domain <http://www.w3.org/ns/prov#Person> ;
+               rdfs:range xsd:string ;
+               rdfs:comment "Personal email address"@en ;
+               rdfs:label "Personal email"@en ;
+               <http://www.w3.org/2004/02/skos/core#definition> "Personal email address"@en .
+
+
+###  http://geosensor.net/ns/SMURF#varietyOf
+:varietyOf rdf:type owl:DatatypeProperty ;
+           rdfs:domain geo:Geometry ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Water body type attribute, indicating the type of hydrology feature"@en ;
+           rdfs:label "Variety of"@en ;
+           <http://www.w3.org/2004/02/skos/core#definition> "Water body type attribute, indicating the type of hydrology feature"@en ;
+           <http://www.w3.org/2004/02/skos/core#example> "flat_sti"@en ,
+                                                         "wb_dam"@en ,
+                                                         "wb_lake"@en .
+
+
+###  http://geosensor.net/ns/SMURF#waterbodyID
+:waterbodyID rdf:type owl:DatatypeProperty ;
+             rdfs:domain geo:Feature ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "Vicmap waterbody idenfitier"@en ;
+             rdfs:label "Waterbody ID"@en ;
+             <http://www.w3.org/2004/02/skos/core#example> "Vicmap waterbody idenfitier"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.opengis.net/ont/geosparql#Feature
+geo:Feature rdf:type owl:Class .
+
+
+###  http://www.opengis.net/ont/geosparql#Geometry
+geo:Geometry rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/dcat#Dataset
+dcat:Dataset rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/dqv#QualityMeasurement
+dqv:QualityMeasurement rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Entity
+<http://www.w3.org/ns/prov#Entity> rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Organization
+<http://www.w3.org/ns/prov#Organization> rdf:type owl:Class .
+
+
+###  http://www.w3.org/ns/prov#Person
+<http://www.w3.org/ns/prov#Person> rdf:type owl:Class .
+
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
