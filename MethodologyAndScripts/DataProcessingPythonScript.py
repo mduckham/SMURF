@@ -1,5 +1,5 @@
 #%%
-## Indetifying waterbodies with multiple or single representation 
+## Identifying waterbodies with multiple or single representation 
 
 import geopandas as gpd
 import matplotlib.pyplot as plt
