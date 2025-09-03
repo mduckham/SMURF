@@ -109,8 +109,6 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  C
 }
 
 ```
-
-```
 ## Temporal changes
 ### Examples of competency questions and queries:
 1) Which water features have increased in area in the last three years?   
