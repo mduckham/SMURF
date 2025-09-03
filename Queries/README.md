@@ -1,4 +1,4 @@
-# Competency queries
+# Competency questions and queries
 
 ## Preliminaries
 
@@ -27,8 +27,40 @@ PREFIX ext: <http://rdf.useekm.com/ext#>
 
 
 ```
+## Multiple geometry representations
+### A set of example queries:
 
-## A set of example queries:
+1) Which water features have multiple geometric representations?
+```
+PREFIX smurf:<http://geosensor.net/SMURF#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+
+SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
+    ?wb_instance geosparql:hasGeometry ?geometry ;        # identify instances 
+        smurf:waterbodyID ?ID .                           # water body ID 
+    ?geometry rdf:type geosparql:Geometry ;               # geometry 
+        smurf:hasPFI ?pfi ;                               # persistent identifier 
+        smurf:hasUFI ?ufi ;                               # unique identifier 
+        smurf:varietyOf ?ftype ;                          # feature type 
+        smurf:hasGeometryProvenance ?geomprov .           # geometry provenance
+    ?geomprov dcterms:title ?auxname .
+    {
+    SELECT ?wb_instance WHERE {                           # nested SELECT
+        ?wb_instance geosparql:hasGeometry ?geometry1 .   # geometry
+        ?geometry1 rdf:type sf:Polygon .                  # Identify polygon
+        ?wb_instance geosparql:hasGeometry ?geometry2 .   # geometry
+        ?geometry2 rdf:type sf:Point .                    # Identify point
+    }
+    GROUP BY ?wb_instance                                 # then filter to
+    HAVING (COUNT(DISTINCT ?geometry1) >= 1 &&            # features with
+    COUNT(DISTINCT ?geometry2) >= 1)                      # both representations
+    }
+}
+
+```
 
 1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies located within the City of Greater Shepparton?
 
