@@ -104,6 +104,27 @@ SELECT DISTINCT ?ID ?pfi ?ufi ?ftype ?date ?areaOld ?areaNew ?auxname WHERE {
     }
 }
 ```
+## Provenance
+### A set of example competency questions and queries 
+1) What is the geometry provenance (information about source organization and data set) for a specified water feature?
+```
+PREFIX smurf:<http://geosensor.net/SMURF#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geosparql:<http://www.opengis.net/ont/geosparql#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+
+SELECT ?pfi ?ufi ?createdate ?ftype ?auxname ?auxcontent WHERE {
+	?wb_instance geosparql:hasGeometry ?geometry.	 # Identify instances ...
+	?geometry rdf:type geosparql:Geometry;				 # ... geometry ...
+		smurf:hasPFI ?pfi;									 # ... persistent identifier ...
+		smurf:hasUFI ?ufi;									 # ... unique identifier...
+		smurf:varietyOf ?ftype;								 # ... feature type ...
+		smurf:createDate ?createdate;					 # ... create date ...  
+		smurf:hasGeometryProvenance ?geomprov.		 # ... geometry provenance
+	?geomprov dcterms:title ?auxname;				 # with the source name ...
+		dcterms:source ?auxcontent.					 # .. and data source details
+}
+```
 
 1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies located within the City of Greater Shepparton?
 
