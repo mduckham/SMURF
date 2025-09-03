@@ -126,6 +126,27 @@ SELECT ?pfi ?ufi ?createdate ?ftype ?auxname ?auxcontent WHERE {
 }
 ```
 
+2) What is dataset and source of geometries with PFI of 8136595 in different data sets?
+
+```
+SELECT ?pfi ?createdate ?ftype ?dataset ?identifier ?source
+WHERE  {
+	?wb_instance rdf:type geosparql:Feature;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:hasGeometryProvenance ?geomprov;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.   
+	?geomprov dcterms:title ?dataset;
+		dcterms:identifier ?identifier;
+		dcterms:source ?source.
+	FILTER (?pfi = 8136595).
+}
+```
+
 1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies located within the City of Greater Shepparton?
 
    Description: this query retrieves waterbody features that are represented with point and polygon geometries in the current Vicmap Hydro data within the area of the City 
@@ -1335,30 +1356,6 @@ WHERE{
 		?dataset = 'HY_WATER_AREA_LIDAR').
 }
 
-```
-
-## Metadata queries
-
-34) Identify dataset and source of geometries with pfi of 8136595 in different data sets?
-
-
-```
-SELECT ?pfi ?createdate ?ftype ?dataset ?identifier ?source
-WHERE  {
-	?wb_instance rdf:type geosparql:Feature;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:hasGeometryProvenance ?geomprov;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.   
-	?geomprov dcterms:title ?dataset;
-		dcterms:identifier ?identifier;
-		dcterms:source ?source.
-	FILTER (?pfi = 8136595).
-}
 ```
 
 ## Indexing GraphDB
