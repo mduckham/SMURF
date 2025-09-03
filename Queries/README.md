@@ -247,9 +247,8 @@ WHERE  {
 
 3) Can you display waterbody lakes that are on the Vicmap crown land parcel that has specific permanent feature identifier (PFI) with number 52490156?
 
-   Description: this query retrieves waterbody lakes within a specific Vicmap property with the PFI specified in the question. It shows multiple waterbody lakes on one 
-   parcel that belongs to the crown land. The execution and visualization of this query takes around 2.5 minutes. Computational time for the query execution is delayed due 
-   to a limitation associated with use of free version of commercial GraphDB software for the Dynamic Vicmap prototype. 
+   The query below retrieves waterbody lakes within a specific Vicmap property with the PFI specified in the question. It shows multiple waterbody lakes on one 
+   parcel that belongs to the crown land.
 
 ```
 select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
