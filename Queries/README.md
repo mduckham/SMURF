@@ -63,7 +63,7 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
 ```
 ## Temporal changes
 ### A set of example queries:
-
+1) Which water features have increased in area in the last three years?   
 ```
 PREFIX smurf:<http://geosensor.net/SMURF#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
