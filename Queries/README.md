@@ -72,7 +72,6 @@ SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
 WHERE {?wb_instance rdf:type geosparql:Feature;
 				geosparql:hasGeometry ?geometry.
-
             ?geometry rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:hasPFI ?pfi;
                 Ontology_Vicmap:hasUFI ?ufi;
@@ -90,19 +89,20 @@ SELECT ?wb_instance
                 Ontology_Vicmap:geometryCoordinates ?coord1;
                 Ontology_Vicmap:hasGeometryProvenance ?prov.
             ?prov dcterms:title ?dataset.
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').        #  FILTER (regex(str(?coord1), "POLYGON", "i"))
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').        
+			#  FILTER (regex(str(?coord1), "POLYGON", "i"))
 			?wb_instance  geosparql:hasGeometry ?geometry2.
   			?geometry2 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:geometryCoordinates ?coord2;
                 Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
-            
+            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.     
             ?wb_instance  geosparql:hasGeometry ?geometry3.
   			?geometry3 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:geometryCoordinates ?coord3;
                 Ontology_Vicmap:hasGeometryProvenance ?prov3.
             ?prov3 dcterms:title 'HY_WATER_AREA_ML'.
-        }     # 			FILTER (regex(str(?coord2), "POINT", "i"))}
+        }     
+		# 			FILTER (regex(str(?coord2), "POINT", "i"))}
 GROUP BY ?wb_instance
 HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  COUNT(DISTINCT ?geometry3) >= 1)
     }
