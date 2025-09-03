@@ -28,7 +28,7 @@ PREFIX ext: <http://rdf.useekm.com/ext#>
 
 ```
 ## Multiple geometry representations
-### A set of example queries:
+### Examples of competency questions and queries:
 
 1) Which water features have multiple geometric representations?
 ```
@@ -62,7 +62,7 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
 
 ```
 ## Temporal changes
-### A set of example queries:
+### Examples of competency questions and queries:
 1) Which water features have increased in area in the last three years?   
 ```
 PREFIX smurf:<http://geosensor.net/SMURF#>
@@ -105,7 +105,7 @@ SELECT DISTINCT ?ID ?pfi ?ufi ?ftype ?date ?areaOld ?areaNew ?auxname WHERE {
 }
 ```
 ## Provenance
-### A set of example competency questions and queries 
+### Examples of competency questions and queries:
 1) What is the geometry provenance (information about source organization and data set) for a specified water feature?
 ```
 PREFIX smurf:<http://geosensor.net/SMURF#>
