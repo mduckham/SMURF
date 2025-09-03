@@ -60,6 +60,58 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
     }
 }
 
+2) What water features with multiple geometry representations are included in both authoritative (Vicmap) and non-authoritative (LiDAR and Machine-Learned) Hydro data sets?
+
+The query below retrieves waterbody features which have multiple three different geometry representations: Vicmap Hydro polygon geometry, Vicmap Hydro point geometry, ML polygon geometry. In particular, the query demonstrates how multiple versions can be integrated and related to one waterbody feature. 
+
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+    {
+SELECT ?wb_instance
+
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title ?dataset.
+          
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
+#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
+            
+            ?wb_instance  geosparql:hasGeometry ?geometry3.
+  			?geometry3 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord3;
+                Ontology_Vicmap:hasGeometryProvenance ?prov3.
+            ?prov3 dcterms:title 'HY_WATER_AREA_ML'.
+        }
+# 			FILTER (regex(str(?coord2), "POINT", "i"))}
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  COUNT(DISTINCT ?geometry3) >= 1)
+    }
+}
+
+```
+
 ```
 ## Temporal changes
 ### Examples of competency questions and queries:
@@ -222,59 +274,6 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
 ```
 
-3) Can you show multiple geometry representations (point and polygon) of waterbodies included in both Vicmap Hydro and machine learned (ML) data sets?
-
-   Description: this query retrieves waterbody features which have multiple three different geometry representations: Vicmap Hydro polygon geometry, Vicmap Hydro point 
-   geometry, ML polygon geometry. In particular, the query demonstrates how multiple versions can be integrated and related to one waterbody feature. The execution and 
-   visualization of query results takes around 4 seconds for this query.
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
-            
-            ?wb_instance  geosparql:hasGeometry ?geometry3.
-  			?geometry3 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord3;
-                Ontology_Vicmap:hasGeometryProvenance ?prov3.
-            ?prov3 dcterms:title 'HY_WATER_AREA_ML'.
-        }
-# 			FILTER (regex(str(?coord2), "POINT", "i"))}
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  COUNT(DISTINCT ?geometry3) >= 1)
-    }
-}
-
-```
 
 4) Can you display waterbody lakes that are on the Vicmap crown land parcel that has specific permanent feature identifier (PFI) with number 52490156?
 
