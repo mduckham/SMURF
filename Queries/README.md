@@ -63,8 +63,7 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
 
 ```
 2) What water features with multiple geometry representations are included in both authoritative (Vicmap) and non-authoritative (LiDAR and Machine-Learned) Hydro data sets?
-
-The query below retrieves waterbody features which have multiple three different geometry representations: Vicmap Hydro polygon geometry, Vicmap Hydro point geometry, ML polygon geometry. In particular, the query demonstrates how multiple versions can be integrated and related to one waterbody feature. 
+   The query below retrieves waterbody features which have multiple three different geometry representations: Vicmap Hydro polygon geometry, Vicmap Hydro point geometry, ML polygon geometry. In particular, the query  demonstrates how multiple versions can be integrated and related to one waterbody feature. 
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
