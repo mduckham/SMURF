@@ -61,6 +61,49 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
 }
 
 ```
+## Temporal changes
+### A set of example queries:
+
+```
+PREFIX smurf:<http://geosensor.net/SMURF#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX ext: <http://rdf.useekm.com/ext#>
+PREFIX sf: <http://www.opengis.net/ont/sf#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?ID ?pfi ?ufi ?ftype ?date ?areaOld ?areaNew ?auxname WHERE {
+    ?wb_instance geosparql:hasGeometry ?geometry ;  # identify instances
+        smurf:waterbodyID ?ID .                     # water body ID
+    ?geometry rdf:type geosparql:Geometry;          # geometry 
+        smurf:hasPFI ?pfi;                          # persistent identifier 
+        smurf:hasUFI ?ufi;                          # unique identifier 
+        smurf:varietyOf ?ftype;                     # feature type
+        smurf:createDate ?date;                     # creation date
+        smurf:hasGeometryProvenance ?geomprov.      # geometry provenance
+    ?geomprov dcterms:title ?auxname.
+    {
+        SELECT DISTINCT ?wb_instance ?geometry1 ?geometry2 # nested SELECT
+            (ext:area(?coord1) AS ?areaOld)         #calculate old area
+            (ext:area(?coord2) AS ?areaNew)         #calculate new area
+        WHERE {
+            ?wb_instance geosparql:hasGeometry ?geometry1, ?geometry2.
+            ?geometry1 rdf:type sf:Polygon;         # geometry1 older polygon
+                smurf:geometryCoordinates ?coord1;  # linked geometry
+                smurf:createDate ?date1.            # previous date
+            ?geometry2 rdf:type sf:Polygon;         # geometry2 newer polygon
+                smurf:geometryCoordinates ?coord2;  # linked geometry
+                smurf:createDate ?date2.            # latest date
+            FILTER(?date2 > ?date1)     # geometry2 is newer than geometry1
+            BIND(NOW() - "P3Y"^^xsd:duration AS ?threeYearsAgoDT) # only  
+            BIND(xsd:date(?threeYearsAgoDT) AS ?threeYearsAgo)  # geometry2
+            FILTER(?date2 >= ?threeYearsAgo)          # within last 3 years
+            FILTER(ext:area(?coord2) > ext:area(?coord1)) # Compare areas
+        }                                                 
+    }
+}
+```
 
 1) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies located within the City of Greater Shepparton?
 
