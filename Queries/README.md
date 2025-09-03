@@ -31,6 +31,7 @@ PREFIX ext: <http://rdf.useekm.com/ext#>
 ### Examples of competency questions and queries:
 
 1) Which water features have multiple geometric representations?
+
 ```
 PREFIX smurf:<http://geosensor.net/SMURF#>
 PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
@@ -65,6 +66,7 @@ SELECT ?pfi ?ufi ?ftype ?auxname WHERE {
 The query below retrieves waterbody features which have multiple three different geometry representations: Vicmap Hydro polygon geometry, Vicmap Hydro point geometry, ML polygon geometry. In particular, the query demonstrates how multiple versions can be integrated and related to one waterbody feature. 
 
 ```
+
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
  	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
@@ -82,14 +84,12 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 		dcterms:source ?auxcontent.
     {
 SELECT ?wb_instance
-
 	    WHERE {?wb_instance rdf:type geosparql:Feature;
 				geosparql:hasGeometry ?geometry1.
             ?geometry1 rdf:type geosparql:Geometry ;
                 Ontology_Vicmap:geometryCoordinates ?coord1;
                 Ontology_Vicmap:hasGeometryProvenance ?prov.
             ?prov dcterms:title ?dataset.
-          
             FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
 #     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
 			?wb_instance  geosparql:hasGeometry ?geometry2.
