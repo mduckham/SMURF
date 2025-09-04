@@ -202,6 +202,239 @@ SELECT DISTINCT ?ID ?pfi ?ufi ?ftype ?date ?areaOld ?areaNew ?auxname WHERE {
     }
 }
 ```
+
+2) In 2022 what properties were affected by flood in Kerang, a town in northern Victoria?
+
+   The query below retrieves information about parcels affected with flooding in Kerang, a town in northern Victoria. The query is 
+   executed over Vicmap Property and Vicmap Flood authoritative data sets.
+
+```
+SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+
+WHERE  
+    {
+    ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry2.
+        ?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+             Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+               ?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+Filter(?auxname != 'Vicmap Hydro - Water Point')
+Filter(?auxname != 'Vicmap Hydro - Water Polygon')
+Filter(?auxname != 'Flood_NonAuthoritative_25Jan')
+Filter(?auxname != 'Flood_Authoritative')
+
+FILTER (geof:sfWithin(?geometry_coord, "POLYGON((143.861473 -35.694010, 143.863302 -35.693154, 143.863625 -35.694772 ,143.865111 -35.693599, 143.868487 -35.692789, 143.879680 -35.701755, 143.879256	-35.699321, 143.893690 -35.699268, 143.894771 -35.700120, 143.894809 -35.702253, 143.896057	-35.702359, 143.897258 -35.695757, 143.899397 -35.696007, 143.903500 -35.698331, 143.910672	-35.694517, 143.911588 -35.689293, 143.907033 -35.688755, 143.904027 -35.687648, 143.908112	-35.661410, 143.909934 -35.661043, 143.920925 -35.664710, 143.943531 -35.664455, 143.945423	-35.658629, 143.959328 -35.659006, 143.965710 -35.658936, 143.967868 -35.659912, 143.967865	-35.661578, 143.982797 -35.661881, 143.987628 -35.669208, 143.999111 -35.674224, 144.002610	-35.681418, 143.987880 -35.685882, 143.997774 -35.699993, 143.998473 -35.711322, 144.002628	-35.711846, 144.007664 -35.708755, 144.013797 -35.714936, 144.010661 -35.714858, 144.010662	-35.724925, 144.003949 -35.725081, 144.004034 -35.733504, 144.006708 -35.733508, 144.006716	-35.736155, 144.019024 -35.736179, 144.022083 -35.735500, 144.025759 -35.735703, 144.027005	-35.737340, 144.027519 -35.740819, 144.029287 -35.741221, 144.032602 -35.739462, 144.033968	-35.747939, 144.032380 -35.747928, 144.032389 -35.754407, 144.027532 -35.754398, 144.027111	-35.756719, 144.023377 -35.756708, 144.023374 -35.758042, 144.008865 -35.757999, 144.008853	-35.762281, 143.999255 -35.762268, 143.999256 -35.757879, 143.996595 -35.757879, 143.996595	-35.756327, 143.992599 -35.756341, 143.992602 -35.760214, 143.990828 -35.760224, 143.990803	-35.769395, 143.964714 -35.772341, 143.957625 -35.772782, 143.953921 -35.769736, 143.952537	-35.760266, 143.950802 -35.755338, 143.952556 -35.741010, 143.949807 -35.741747, 143.948684	-35.745949, 143.945427 -35.745845, 143.938708 -35.720096, 143.928043 -35.720118, 143.932683	-35.715179, 143.930094 -35.713923, 143.922748 -35.717983, 143.914457 -35.718184, 143.914016	-35.720101, 143.908618 -35.720053, 143.909064 -35.728561, 143.907775 -35.729724, 143.916979	-35.738347, 143.919609 -35.744687, 143.919913 -35.747171, 143.918283 -35.747785, 143.915783	-35.746509, 143.912477 -35.749478, 143.912897 -35.752774, 143.920460 -35.762702, 143.951322	-35.763411, 143.950845 -35.767874, 143.937910 -35.769081, 143.940613 -35.789540, 143.916814	-35.789555, 143.914592 -35.786327, 143.902472 -35.785802, 143.895367 -35.771289, 143.905778	-35.763196, 143.892344 -35.751075, 143.891593 -35.735211, 143.885287 -35.735219, 143.881957	-35.728681, 143.881049 -35.721331, 143.870647 -35.722067, 143.869162 -35.699190, 143.864321	-35.699359, 143.867144 -35.704666, 143.867840 -35.712330, 143.863981 -35.712908, 143.863915	-35.696026, 143.861356 -35.695927, 143.861473 -35.694010, 143.861473 -35.694010))"))
+    }
+
+```
+
+3) What parcels were affected by flood in the City of Greater Shepparton in 2022?
+ 
+   The query below retrieves information about parcels affected with flooding in the City of Greater Shepparton in 2022. The query is 
+   executed over Vicmap Property and Vicmap Flood authoritative data sets. 
+   
+```
+SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+
+WHERE  
+    {
+    ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry2.
+        ?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+             Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+               ?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+
+Filter(?auxname != 'Vicmap Hydro - Water Point')
+Filter(?auxname != 'Vicmap Hydro - Water Polygon')
+Filter(?auxname != 'Flood_NonAuthoritative_25Jan')
+Filter(?auxname != 'Flood_Authoritative')
+
+			FILTER (geof:sfWithin(?geometry_coord, "POLYGON((145.4668467 -36.22303826, 145.3669737-36.20005209, 145.3669069 -36.19952816, 145.3668658 -36.19920535, 145.3674758 -36.19920557, 145.4569918 -36.20763745, 145.4536533 -36.22937994, 145.4442391 -36.19920793, 145.4668467 -36.22303826))") || geof:sfWithin(?geometry_coord, "POLYGON((145.4668467, -36.22303826, 145.3669737 -36.20005209, 145.3669069 -36.19952816, 145.3668658 36.19920535, 145.3674758 -36.19920557, 145.4569918 -36.20763745, 145.4536533 -36.22937994, 145.4442391 -36.19920793, 145.4668467 -36.22303826))") || geof:sfWithin(?geometry_coord, "POLYGON((145.1733296 -36.69556836, 145.3468007 -36.4154961, 145.456686 -36.24958319, 145.390706 -36.21549505, 145.2275778 -36.15859706, 145.2626446 -36.19930299, 145.3373289 -36.20004659, 145.1367485 -36.21200745, 145.1379392 -36.15403241, 145.1683665 -36.60622119, 145.5091272 -36.35645314, 145.7772863 -36.43350283, 145.6961504 -36.42983847, 145.7129652 -36.40136049, 145.7489735 -36.39772207, 145.253235 -36.45464879, 145.686325 -36.48722558, 145.43173 -36.477583, 145.1733296 -36.69556836))"))
+    }
+
+```
+
+4) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last year?
+
+   The query below retrieves information about new waterbodies within a particular Vicmap parcel with the permanent feature identifier (PFI) 131398958 that belongs 
+   to the crown land. The query uses date (timestamp) to retrieve all waterbodies that have been developed in the last year. It is executed over Vicmap Hydro and Vicmap 
+   Property data sets.   
+
+```
+
+select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+where {
+    {
+        ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+    	?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:isCrown True;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasUFI ?ufi;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+        
+		?geomprov dcterms:title ?auxname;
+			dcterms:source ?auxcontent.
+    
+    Filter (?pfi = '131398958'^^xsd:int)
+        }
+union
+    {
+select   ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+where 
+{
+        ?wb_instance rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry2.
+        ?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+        
+		?geomprov dcterms:title ?auxname;
+			dcterms:source ?auxcontent.
+    
+    FILTER(?ftype in ('wb_lake') &&
+        xsd:date(?createdate) > "2023-02-22"^^xsd:date)
+    
+		?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+    	?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:isCrown True;
+                Ontology_Vicmap:hasPFI ?pfi1;
+                Ontology_Vicmap:geometryCoordinates ?parcelCoord.
+    
+    Filter (?pfi1 = '131398958'^^xsd:int)
+
+    Filter (geof:sfIntersects(?geometry_coord, ?parcelCoord))
+    }
+    
+    }
+}
+
+```
+
+5) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in the last year?
+
+    The query below retrieves waterbodies that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and machine 
+    learned waterbody polygon data. It shows waterbodies for which ML polygon representation has larger area size than Vicmap Hydro Water polygon representation. 
+
+```
+
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+    
+    Filter(?auxname != 'HY_WATER_AREA_LIDAR')
+   
+    {
+SELECT ?wb_instance
+
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title ?dataset.
+          
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
+            
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'HY_WATER_AREA_ML'.
+           
+            Filter(ext:area(?coord2) > ext:area(?coord1))
+        }
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
+    }
+}
+
+```
+
+11) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
+
+    Description: this query retrieves waterbodies that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and LiDAR 
+    captured waterbody polygon data. It shows waterbodies for which LiDAR polygon representation has larger area size than Vicmap Hydro Water polygon representation. The 
+    execution and visualization of this query takes around 3.5 minutes. Computational time for the query execution is delayed due to a limitation associated with use of free 
+    version of commercial GraphDB software for the Dynamic Vicmap prototype.
+
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+    
+    Filter(?auxname != 'HY_WATER_AREA_ML')
+   
+    {
+SELECT ?wb_instance
+
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title ?dataset.
+          
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
+            
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'HY_WATER_AREA_LIDAR'.
+           
+            Filter(ext:area(?coord2) > ext:area(?coord1))
+        }
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
+    }
+} 
+
+```
 ## Provenance
 ### Examples of competency questions and queries:
 1) What is the geometry provenance (information about source organization and data set) for a specified water feature?
@@ -392,240 +625,7 @@ WHERE
 
 ```
 
-6) In 2022 what properties were affected by flood in Kerang, a town in northern Victoria?
 
-   Description: this query retrieves information about parcels affected with flooding in Kerang, a town in northern Victoria. The query is 
-   executed over Vicmap Property and Vicmap Flood authoritative data sets. The execution and visualization of this query takes around 10-15 seconds.
-
-```
-SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-
-WHERE  
-    {
-    ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry2.
-        ?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-             Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-               ?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-Filter(?auxname != 'Vicmap Hydro - Water Point')
-Filter(?auxname != 'Vicmap Hydro - Water Polygon')
-Filter(?auxname != 'Flood_NonAuthoritative_25Jan')
-Filter(?auxname != 'Flood_Authoritative')
-
-FILTER (geof:sfWithin(?geometry_coord, "POLYGON((143.861473 -35.694010, 143.863302 -35.693154, 143.863625 -35.694772 ,143.865111 -35.693599, 143.868487 -35.692789, 143.879680 -35.701755, 143.879256	-35.699321, 143.893690 -35.699268, 143.894771 -35.700120, 143.894809 -35.702253, 143.896057	-35.702359, 143.897258 -35.695757, 143.899397 -35.696007, 143.903500 -35.698331, 143.910672	-35.694517, 143.911588 -35.689293, 143.907033 -35.688755, 143.904027 -35.687648, 143.908112	-35.661410, 143.909934 -35.661043, 143.920925 -35.664710, 143.943531 -35.664455, 143.945423	-35.658629, 143.959328 -35.659006, 143.965710 -35.658936, 143.967868 -35.659912, 143.967865	-35.661578, 143.982797 -35.661881, 143.987628 -35.669208, 143.999111 -35.674224, 144.002610	-35.681418, 143.987880 -35.685882, 143.997774 -35.699993, 143.998473 -35.711322, 144.002628	-35.711846, 144.007664 -35.708755, 144.013797 -35.714936, 144.010661 -35.714858, 144.010662	-35.724925, 144.003949 -35.725081, 144.004034 -35.733504, 144.006708 -35.733508, 144.006716	-35.736155, 144.019024 -35.736179, 144.022083 -35.735500, 144.025759 -35.735703, 144.027005	-35.737340, 144.027519 -35.740819, 144.029287 -35.741221, 144.032602 -35.739462, 144.033968	-35.747939, 144.032380 -35.747928, 144.032389 -35.754407, 144.027532 -35.754398, 144.027111	-35.756719, 144.023377 -35.756708, 144.023374 -35.758042, 144.008865 -35.757999, 144.008853	-35.762281, 143.999255 -35.762268, 143.999256 -35.757879, 143.996595 -35.757879, 143.996595	-35.756327, 143.992599 -35.756341, 143.992602 -35.760214, 143.990828 -35.760224, 143.990803	-35.769395, 143.964714 -35.772341, 143.957625 -35.772782, 143.953921 -35.769736, 143.952537	-35.760266, 143.950802 -35.755338, 143.952556 -35.741010, 143.949807 -35.741747, 143.948684	-35.745949, 143.945427 -35.745845, 143.938708 -35.720096, 143.928043 -35.720118, 143.932683	-35.715179, 143.930094 -35.713923, 143.922748 -35.717983, 143.914457 -35.718184, 143.914016	-35.720101, 143.908618 -35.720053, 143.909064 -35.728561, 143.907775 -35.729724, 143.916979	-35.738347, 143.919609 -35.744687, 143.919913 -35.747171, 143.918283 -35.747785, 143.915783	-35.746509, 143.912477 -35.749478, 143.912897 -35.752774, 143.920460 -35.762702, 143.951322	-35.763411, 143.950845 -35.767874, 143.937910 -35.769081, 143.940613 -35.789540, 143.916814	-35.789555, 143.914592 -35.786327, 143.902472 -35.785802, 143.895367 -35.771289, 143.905778	-35.763196, 143.892344 -35.751075, 143.891593 -35.735211, 143.885287 -35.735219, 143.881957	-35.728681, 143.881049 -35.721331, 143.870647 -35.722067, 143.869162 -35.699190, 143.864321	-35.699359, 143.867144 -35.704666, 143.867840 -35.712330, 143.863981 -35.712908, 143.863915	-35.696026, 143.861356 -35.695927, 143.861473 -35.694010, 143.861473 -35.694010))"))
-    }
-
-```
-
-7) What parcels were affected by flood in the City of Greater Shepparton in 2022?
- 
-   Description: this query retrieves information about parcels affected with flooding in the City of Greater Shepparton in 2022. The query is 
-   executed over Vicmap Property and Vicmap Flood authoritative data sets. The execution and visualization of this query takes around 10-15 seconds.
-   
-```
-SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-
-WHERE  
-    {
-    ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry2.
-        ?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-             Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-               ?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-
-Filter(?auxname != 'Vicmap Hydro - Water Point')
-Filter(?auxname != 'Vicmap Hydro - Water Polygon')
-Filter(?auxname != 'Flood_NonAuthoritative_25Jan')
-Filter(?auxname != 'Flood_Authoritative')
-
-			FILTER (geof:sfWithin(?geometry_coord, "POLYGON((145.4668467 -36.22303826, 145.3669737-36.20005209, 145.3669069 -36.19952816, 145.3668658 -36.19920535, 145.3674758 -36.19920557, 145.4569918 -36.20763745, 145.4536533 -36.22937994, 145.4442391 -36.19920793, 145.4668467 -36.22303826))") || geof:sfWithin(?geometry_coord, "POLYGON((145.4668467, -36.22303826, 145.3669737 -36.20005209, 145.3669069 -36.19952816, 145.3668658 36.19920535, 145.3674758 -36.19920557, 145.4569918 -36.20763745, 145.4536533 -36.22937994, 145.4442391 -36.19920793, 145.4668467 -36.22303826))") || geof:sfWithin(?geometry_coord, "POLYGON((145.1733296 -36.69556836, 145.3468007 -36.4154961, 145.456686 -36.24958319, 145.390706 -36.21549505, 145.2275778 -36.15859706, 145.2626446 -36.19930299, 145.3373289 -36.20004659, 145.1367485 -36.21200745, 145.1379392 -36.15403241, 145.1683665 -36.60622119, 145.5091272 -36.35645314, 145.7772863 -36.43350283, 145.6961504 -36.42983847, 145.7129652 -36.40136049, 145.7489735 -36.39772207, 145.253235 -36.45464879, 145.686325 -36.48722558, 145.43173 -36.477583, 145.1733296 -36.69556836))"))
-    }
-
-```
-
-9) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last year?
-
-   Description: this query retrieves information about new waterbodies within a particular Vicmap parcel with the permanent feature identifier (PFI) 131398958 that belongs 
-   to the crown land. The query uses date (timestamp) to retrieve all waterbodies that have been developed in the last year. It is executed over Vicmap Hydro and Vicmap 
-   Property data sets. The execution and visualization of this query takes around 15 seconds.  
-
-```
-
-select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-where {
-    {
-        ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-    	?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:isCrown True;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasUFI ?ufi;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-        
-		?geomprov dcterms:title ?auxname;
-			dcterms:source ?auxcontent.
-    
-    Filter (?pfi = '131398958'^^xsd:int)
-        }
-union
-    {
-select   ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-where 
-{
-        ?wb_instance rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry2.
-        ?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-        
-		?geomprov dcterms:title ?auxname;
-			dcterms:source ?auxcontent.
-    
-    FILTER(?ftype in ('wb_lake') &&
-        xsd:date(?createdate) > "2023-02-22"^^xsd:date)
-    
-		?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-    	?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:isCrown True;
-                Ontology_Vicmap:hasPFI ?pfi1;
-                Ontology_Vicmap:geometryCoordinates ?parcelCoord.
-    
-    Filter (?pfi1 = '131398958'^^xsd:int)
-
-    Filter (geof:sfIntersects(?geometry_coord, ?parcelCoord))
-    }
-    
-    }
-}
-
-```
-
-10) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in the last year?
-
-    Description: this query retrieves waterbodies that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and machine 
-    learned waterbody polygon data. It shows waterbodies for which ML polygon representation has larger area size than Vicmap Hydro Water polygon representation. The 
-    execution and visualization of this query takes around 3 minutes. Computational time for the query execution is delayed due to a limitation associated with use of free 
-    version of commercial GraphDB software for the Dynamic Vicmap prototype.
-
-```
-
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    
-    Filter(?auxname != 'HY_WATER_AREA_LIDAR')
-   
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-            
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'HY_WATER_AREA_ML'.
-           
-            Filter(ext:area(?coord2) > ext:area(?coord1))
-        }
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
-    }
-}
-
-```
-
-11) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
-
-    Description: this query retrieves waterbodies that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and LiDAR 
-    captured waterbody polygon data. It shows waterbodies for which LiDAR polygon representation has larger area size than Vicmap Hydro Water polygon representation. The 
-    execution and visualization of this query takes around 3.5 minutes. Computational time for the query execution is delayed due to a limitation associated with use of free 
-    version of commercial GraphDB software for the Dynamic Vicmap prototype.
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    
-    Filter(?auxname != 'HY_WATER_AREA_ML')
-   
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-            
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'HY_WATER_AREA_LIDAR'.
-           
-            Filter(ext:area(?coord2) > ext:area(?coord1))
-        }
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
-    }
-} 
-
-```
 12) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies?
 
 ```
