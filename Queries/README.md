@@ -383,12 +383,10 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
 
 ```
 
-11) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
+6) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
 
-    Description: this query retrieves waterbodies that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and LiDAR 
-    captured waterbody polygon data. It shows waterbodies for which LiDAR polygon representation has larger area size than Vicmap Hydro Water polygon representation. The 
-    execution and visualization of this query takes around 3.5 minutes. Computational time for the query execution is delayed due to a limitation associated with use of free 
-    version of commercial GraphDB software for the Dynamic Vicmap prototype.
+   The query below retrieves water geatures that have been increased in their size by comparing waterbody area size between Vicmap Hydro Water Polygon and LiDAR 
+    captured waterbody polygon data. It shows waterbodies for which LiDAR polygon representation has larger area size than Vicmap Hydro Water polygon representation. 
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
