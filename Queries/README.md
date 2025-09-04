@@ -157,6 +157,185 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
 }
 
 ```
+
+4) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative water features?
+
+   The query below retrieves water features included in the authoritative Vicmap data sets represented with point and polygon geometric representations.
+   
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype  ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+              Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+	?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+
+Filter( ?auxname not in ('HY_WATER_AREA_ML'))
+
+    {
+SELECT ?wb_instance
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title 'Vicmap Hydro - Water Polygon'.
+
+#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
+        }
+# 			FILTER (regex(str(?coord2), "POINT", "i"))}
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
+    }
+}
+LIMIT 100
+```
+5) Can you show multiple geometry representations (point and polygon) of waterbodies included in both Vicmap Hydro and Machine Learning data sets?
+
+   The query below retrieves water features included in the authoritative Vicmap data sets and non-authoritative Machine Learning data represented with point and polygon geometric representations.
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+    {
+SELECT ?wb_instance
+
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title ?dataset.
+          
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
+#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
+            
+            ?wb_instance  geosparql:hasGeometry ?geometry3.
+  			?geometry3 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord3;
+                Ontology_Vicmap:hasGeometryProvenance ?prov3.
+            ?prov3 dcterms:title 'HY_WATER_AREA_ML'.
+        }
+# 			FILTER (regex(str(?coord2), "POINT", "i"))}
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  COUNT(DISTINCT ?geometry3) >= 1)
+    }
+}
+```
+
+6) Show all the water features with multiple geometry representations?
+
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?debug)
+	?pfi ?ufi ?ftype ?createdate ?geometry_coord
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {
+	?wb_instance rdf:type geosparql:Feature;
+		geosparql:hasGeometry ?geometry2;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
+    FILTER(?geometry2 != ?geometry).
+}
+LIMIT 500
+```
+
+7) Show all the water features with both point and polygon representations. 
+
+Note that "LIMIT" won't work with this query, because we won't necessarily get matching point-polygon representations. Instead, the approach is to limit by waterbodyID (between 1000 and 2000, note this query may be slow): 
+
+```
+SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord (?wbid AS ?debug)
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {
+	?wb_instance rdf:type geosparql:Feature;
+		Ontology_Vicmap:waterbodyID ?wbid;
+		geosparql:hasGeometry ?geometry2;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
+	?geometry2 rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:geometryCoordinates ?geometry2_coord.
+    FILTER(?wbidi>1000 && ?wbidi<2000 && 
+    	((?gtype="POIN" && ?g2type="POLY") || (?g2type="POIN" && ?gtype="POLY"))).
+    BIND(xsd:integer(?wbid) AS ?wbidi).
+    BIND(SUBSTR(STR(?geometry_coord),1,4) AS ?gtype).
+    BIND(SUBSTR(STR(?geometry2_coord),1,4) AS ?g2type).
+}
+```
+8) Show all the water features with both point and polygon representations (alternative).
+
+An alternative formulation uses a nested query that will show water bodies with point and polygon representations where point features have 'wb_dam' and polygon features have 'wb_lake' feature types:
+
+```
+SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
+WHERE {
+	?wb_instance rdf:type geosparql:Feature;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
+	{SELECT ?wb_instance
+	WHERE {
+		?wb_instance rdf:type geosparql:Feature;
+			geosparql:hasGeometry ?geometry1;
+			geosparql:hasGeometry ?geometry2.
+		?geometry1 rdf:type geosparql:Geometry ;
+			Ontology_Vicmap:geometryCoordinates ?coord1;
+			Ontology_Vicmap:varietyOf 'wb_lake'.
+		?geometry2 rdf:type geosparql:Geometry ;
+			Ontology_Vicmap:geometryCoordinates ?coord2;
+			Ontology_Vicmap:varietyOf 'wb_dam'.
+		FILTER (regex(str(?coord1), "POLYGON", "i"))
+		FILTER (regex(str(?coord2), "POINT", "i"))
+ 	}
+	GROUP BY ?wb_instance
+	HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
+    }
+}
+```
    
 ## Temporal changes
 ### Examples of competency questions and queries:
@@ -433,6 +612,213 @@ HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
 } 
 
 ```
+
+7) On which Vicmap parcels one or more new waterbodies (farm dams, reservoirs, etc) have been developed in the last year?
+
+   
+```
+
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+#	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE 
+{
+	{
+     ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+         ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+                Ontology_Vicmap:isCrown true;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+              ?geomprov dcterms:title ?auxname;
+						dcterms:source ?auxcontent.
+    
+		FILTER (geof:sfWithin(?geometry_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
+    }
+    {
+	?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?wb_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov1.
+              ?geomprov1 dcterms:title ?auxname1.
+            Filter( ?auxname1 = 'HY_WATER_AREA_ML')
+        
+    {
+        select ?wb_instance where 
+        {
+            ?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+        }
+        GROUP BY ?wb_instance
+        HAVING (COUNT(?wb_instance) =1 )
+        }
+    
+    {
+        Filter (geof:sfIntersects(?geometry_coord, ?wb_coord)).
+    }
+       
+    }
+}
+    
+```
+   
+8) Can you show Victorian properties that have been flooded in last 5 years?
+
+```
+
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+#	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE 
+{
+	{
+     ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+         ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+                Ontology_Vicmap:isCrown true;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+              ?geomprov dcterms:title ?auxname;
+						dcterms:source ?auxcontent.
+    
+		FILTER (geof:sfWithin(?geometry_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
+    }
+    {
+	?flood rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+            ?geometry rdf:type geosparql:Geometry ;
+                      Ontology_Vicmap:varietyOf ?ftype2;
+                Ontology_Vicmap:createDate ?createdate2;     
+                Ontology_Vicmap:geometryCoordinates ?flood_coord.
+        
+        FILTER(?ftype2 in ('Flood_Authoritative') &&
+        xsd:date(?createdate2) > "2022-02-01"^^xsd:date)
+        
+        FILTER (geof:sfWithin(?flood_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
+    }
+      
+    {
+        Filter (geof:sfIntersects(?geometry_coord, ?flood_coord)).
+    }
+       
+}
+```
+   
+9) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in last three years?
+
+```
+SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
+ 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
+WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry.
+
+            ?geometry rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+    
+    Filter(?auxname != 'HY_WATER_AREA_LIDAR')
+   
+    {
+SELECT ?wb_instance
+
+	    WHERE {?wb_instance rdf:type geosparql:Feature;
+				geosparql:hasGeometry ?geometry1.
+            ?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord1;
+                Ontology_Vicmap:hasGeometryProvenance ?prov.
+            ?prov dcterms:title ?dataset.
+          
+            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
+            
+			?wb_instance  geosparql:hasGeometry ?geometry2.
+  			?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:geometryCoordinates ?coord2;
+                Ontology_Vicmap:hasGeometryProvenance ?prov2.
+            ?prov2 dcterms:title 'HY_WATER_AREA_ML'.
+           
+            Filter(ext:area(?coord2) > ext:area(?coord1))
+        }
+GROUP BY ?wb_instance
+HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
+    }
+}
+```
+
+10) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last three years?
+
+ 
+```
+select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+where {
+    {
+        ?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+    	?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:isCrown True;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasUFI ?ufi;
+				Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+        
+		?geomprov dcterms:title ?auxname;
+			dcterms:source ?auxcontent.
+    
+    Filter (?pfi = '131398958'^^xsd:int)
+        }
+union
+    {
+select   ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
+where 
+{
+        ?wb_instance rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry2.
+        ?geometry2 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:hasPFI ?pfi;
+                Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+                Ontology_Vicmap:createDate ?createdate;
+                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
+                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
+        
+		?geomprov dcterms:title ?auxname;
+			dcterms:source ?auxcontent.
+    
+    FILTER(?ftype in ('wb_lake') &&
+        xsd:date(?createdate) > "2023-02-22"^^xsd:date)
+    
+		?parcel rdf:type geosparql:Feature;
+                     geosparql:hasGeometry ?geometry1.
+    	?geometry1 rdf:type geosparql:Geometry ;
+                Ontology_Vicmap:isCrown True;
+                Ontology_Vicmap:hasPFI ?pfi1;
+                Ontology_Vicmap:geometryCoordinates ?parcelCoord.
+    
+    Filter (?pfi1 = '131398958'^^xsd:int)
+
+    Filter (geof:sfIntersects(?geometry_coord, ?parcelCoord))
+    }
+    
+    }
+}
+```
 ## Provenance
 ### Examples of competency questions and queries:
 1) What is the geometry provenance (information about source organization and data set) for a specified water feature?
@@ -567,12 +953,34 @@ FILTER (geof:sfWithin(?geometry_coord, "POLYGON((145.032058 -36.343090, 145.1502
 }
 
 ```
+
+5) What is source information for retrieved spatial feature?
+
+```
+SELECT ?pfi ?createdate ?ftype ?ufi ?geometry_coord ?auxname ?auxcontent
+WHERE  {
+	?wb_instance rdf:type geosparql:Feature;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:hasGeometryProvenance ?geomprov;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.   
+	?geomprov dcterms:title ?auxname;
+		dcterms:source ?auxcontent.
+} LIMIT 200
+```
 -----------------------------------------------------------------------------------------
-2) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
+## Data inspection, analysis, and interrogation 
+### Examples of competency questions and queries:
 
-   Description: this query retrieves on the web map machine learned (ML) waterbody features that are extracted from satellite imagery. ML data set was integrated with Vicmap 
-   Hydro data (polygon and point) into the Dynamic Vicmap knowledge graph. The execution and visualization of query results takes around 5 seconds for this query.
+1) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
 
+   The query retrieves on the web map machine learned (ML) waterbody features that are extracted from satellite imagery. ML data set was integrated with Vicmap 
+   Hydro data (polygon and point) into the Dynamic Vicmap knowledge graph.
+   
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
  	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
@@ -594,13 +1002,10 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 
 ```
 
+2) Can you retrieve and display all Vicmap crown land parcels in the state of Victoria?
 
-
-
-5) Can you retrieve and display all Vicmap crown land parcels in the state of Victoria?
-
-   Description: this query retrieves Vicmap properties (parcels) that are within the local government area of the City of Greater Shepparton. The query result shows only 
-   Vicmap parcels that belongs to the crown land. The execution and visualization of query results takes around 8 seconds for this query.
+   The query retrieves Vicmap properties (parcels) that are within the local government area of the City of Greater Shepparton. The query result shows only 
+   Vicmap parcels that belongs to the crown land.
 
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
@@ -623,53 +1028,7 @@ WHERE
 
 ```
 
-
-12) Can you show multiple geometry representations (point and polygon) for Vicmap authoritative waterbodies?
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype  ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-              Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-	?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-
-Filter( ?auxname not in ('HY_WATER_AREA_ML'))
-
-    {
-SELECT ?wb_instance
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title 'Vicmap Hydro - Water Polygon'.
-
-#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
-        }
-# 			FILTER (regex(str(?coord2), "POINT", "i"))}
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
-    }
-}
-LIMIT 100
-```
-
-13) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
+3) Can you show machine learned (ML) waterbodies extracted from satellite imagery?
 
 ```
 SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
@@ -691,56 +1050,7 @@ WHERE {?wb_instance rdf:type geosparql:Feature;
 }
 ```
 
-14) Can you show multiple geometry representations (point and polygon) of waterbodies included in both Vicmap Hydro and ML data sets?
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-#     		 FILTER (regex(str(?coord1), "POLYGON", "i"))
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'Vicmap Hydro - Water Point'.
-            
-            ?wb_instance  geosparql:hasGeometry ?geometry3.
-  			?geometry3 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord3;
-                Ontology_Vicmap:hasGeometryProvenance ?prov3.
-            ?prov3 dcterms:title 'HY_WATER_AREA_ML'.
-        }
-# 			FILTER (regex(str(?coord2), "POINT", "i"))}
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 &&  COUNT(DISTINCT ?geometry3) >= 1)
-    }
-}
-```
-
-15) Can you display waterbody lakes that are on the Vicmap crown land parcel with specific PFI = 52490156?
+4) Can you display waterbody lakes that are on the Vicmap crown land parcel with specific PFI = 52490156?
 
 ```
 SELECT 
@@ -769,7 +1079,8 @@ WHERE  {
 }
 
 ```
- 16) Can you display all Vicmap crown land parcels that are within machine learned spatial data extent?
+ 5) Can you display all Vicmap crown land parcels that are within machine learned spatial data extent?
+    
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
 
@@ -792,261 +1103,7 @@ WHERE
     }
 ```
    
-17) On which Vicmap parcels one or more new waterbodies (farm dams, reservoirs, etc) have been developed in the last year?
-
-   
-```
-
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-#	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE 
-{
-	{
-     ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-         ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-                Ontology_Vicmap:isCrown true;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-              ?geomprov dcterms:title ?auxname;
-						dcterms:source ?auxcontent.
-    
-		FILTER (geof:sfWithin(?geometry_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
-    }
-    {
-	?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?wb_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov1.
-              ?geomprov1 dcterms:title ?auxname1.
-            Filter( ?auxname1 = 'HY_WATER_AREA_ML')
-        
-    {
-        select ?wb_instance where 
-        {
-            ?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-        }
-        GROUP BY ?wb_instance
-        HAVING (COUNT(?wb_instance) =1 )
-        }
-    
-    {
-        Filter (geof:sfIntersects(?geometry_coord, ?wb_coord)).
-    }
-       
-    }
-}
-    
-```
-   
-18) Can you show Victorian properties that have been flooded in last 5 years?
-
-```
-
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-#	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE 
-{
-	{
-     ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-         ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-                Ontology_Vicmap:isCrown true;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-              ?geomprov dcterms:title ?auxname;
-						dcterms:source ?auxcontent.
-    
-		FILTER (geof:sfWithin(?geometry_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
-    }
-    {
-	?flood rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-            ?geometry rdf:type geosparql:Geometry ;
-                      Ontology_Vicmap:varietyOf ?ftype2;
-                Ontology_Vicmap:createDate ?createdate2;     
-                Ontology_Vicmap:geometryCoordinates ?flood_coord.
-        
-        FILTER(?ftype2 in ('Flood_Authoritative') &&
-        xsd:date(?createdate2) > "2022-02-01"^^xsd:date)
-        
-        FILTER (geof:sfWithin(?flood_coord, "POLYGON((144.17683767728906 -36.673453035742895, 144.17683767728906 -36.5836858867246, 144.2876009046173 -36.5836858867246, 144.2876009046173 -36.673453035742895, 144.17683767728906 -36.673453035742895))"))
-    }
-      
-    {
-        Filter (geof:sfIntersects(?geometry_coord, ?flood_coord)).
-    }
-       
-}
-```
-   
-19) By using new machine learned (ML) data can you identify waterbodies (farm dams, reservoirs, etc) that have increased in their size in last year?
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    
-    Filter(?auxname != 'HY_WATER_AREA_LIDAR')
-   
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-            
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'HY_WATER_AREA_ML'.
-           
-            Filter(ext:area(?coord2) > ext:area(?coord1))
-        }
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
-    }
-}
-```
-
-20) By using LiDAR captured data can you identify the waterbodies (farm dams, reservoirs, etc) that have increased in their size in last 5 years?
-
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?WaterbodyName)
- 	?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry.
-
-            ?geometry rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-    
-    Filter(?auxname != 'HY_WATER_AREA_ML')
-   
-    {
-SELECT ?wb_instance
-
-	    WHERE {?wb_instance rdf:type geosparql:Feature;
-				geosparql:hasGeometry ?geometry1.
-            ?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord1;
-                Ontology_Vicmap:hasGeometryProvenance ?prov.
-            ?prov dcterms:title ?dataset.
-          
-            FILTER (?dataset = 'Vicmap Hydro - Water Polygon').
-            
-			?wb_instance  geosparql:hasGeometry ?geometry2.
-  			?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:geometryCoordinates ?coord2;
-                Ontology_Vicmap:hasGeometryProvenance ?prov2.
-            ?prov2 dcterms:title 'HY_WATER_AREA_LIDAR'.
-           
-            Filter(ext:area(?coord2) > ext:area(?coord1))
-        }
-GROUP BY ?wb_instance
-HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1 )
-    }
-}
-``` 
-21) Can you identify waterbodies that have been developed on the Vicmap crown land parcel with PFI = 131398958 in the last year?
- 
-
-```
-
-select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-where {
-    {
-        ?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-    	?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:isCrown True;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasUFI ?ufi;
-				Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-        
-		?geomprov dcterms:title ?auxname;
-			dcterms:source ?auxcontent.
-    
-    Filter (?pfi = '131398958'^^xsd:int)
-        }
-union
-    {
-select   ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
-where 
-{
-        ?wb_instance rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry2.
-        ?geometry2 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:hasPFI ?pfi;
-                Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-                Ontology_Vicmap:createDate ?createdate;
-                Ontology_Vicmap:geometryCoordinates ?geometry_coord;
-                Ontology_Vicmap:hasGeometryProvenance ?geomprov.
-        
-		?geomprov dcterms:title ?auxname;
-			dcterms:source ?auxcontent.
-    
-    FILTER(?ftype in ('wb_lake') &&
-        xsd:date(?createdate) > "2023-02-22"^^xsd:date)
-    
-		?parcel rdf:type geosparql:Feature;
-                     geosparql:hasGeometry ?geometry1.
-    	?geometry1 rdf:type geosparql:Geometry ;
-                Ontology_Vicmap:isCrown True;
-                Ontology_Vicmap:hasPFI ?pfi1;
-                Ontology_Vicmap:geometryCoordinates ?parcelCoord.
-    
-    Filter (?pfi1 = '131398958'^^xsd:int)
-
-    Filter (geof:sfIntersects(?geometry_coord, ?parcelCoord))
-    }
-    
-    }
-}
-```
-
-22) What are the areas prone to flooding for the Vicmap parcel that has permanent feature identifier (PFI) with number 45537811?
+6) What are the areas prone to flooding for the Vicmap parcel that has permanent feature identifier (PFI) with number 45537811?
 
 ```
 select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
@@ -1102,45 +1159,8 @@ where
 }
 ```
 
-23) What is source information for retrieved spatial feature?
+7) Can you show all wetland swamp areas in Victoria?
 
-```
-SELECT ?pfi ?createdate ?ftype ?ufi ?geometry_coord ?auxname ?auxcontent
-WHERE  {
-	?wb_instance rdf:type geosparql:Feature;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:hasGeometryProvenance ?geomprov;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.   
-	?geomprov dcterms:title ?auxname;
-		dcterms:source ?auxcontent.
-} LIMIT 200
-```
-
-
-24) The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_main_050324.html) is: 
-
-```
-SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
-WHERE {
-	?wb_instance rdf:type geosparql:Feature;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
-}
-LIMIT 100
-```
-
-Consequently, a simple query to show only the wetland swamps would be:
-25) Can you show all wetland swamp areas in Victoria?
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
@@ -1158,8 +1178,8 @@ WHERE {
 LIMIT 100
 ```
 
-Or to retrieve waterbody 8094:
-26) Can you retreive waterbody with name wb8094?
+8) Can you retreive waterbody with name wb8094?
+
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
 	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
@@ -1176,8 +1196,7 @@ WHERE {
 }
 LIMIT 100
 ```
-
-27) A helpful query for a layer: Can you show data set with the title 'HY_WATER_AREA_ML'?
+9) A helpful query for a layer: Can you show data set with the title 'HY_WATER_AREA_ML'?
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
@@ -1197,7 +1216,7 @@ WHERE {
 LIMIT 100
 ```
 
-28) There is also a flexible second tab in the popup enabled. Anything passed back with the optional ?auxname and ?auxcontent parameters will appear in the second tab of the popup (under the "Metadata" tab). For example, the following query will populate the second tab with the coordinates of the feature. 
+10) There is also a flexible second tab in the popup enabled. Anything passed back with the optional ?auxname and ?auxcontent parameters will appear in the second tab of the popup (under the "Metadata" tab). For example, the following query will populate the second tab with the coordinates of the feature. 
 
 ```
 SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord ?auxname ?auxcontent WHERE {
@@ -1214,97 +1233,12 @@ BIND(?geometry_coord AS ?auxcontent)
 } LIMIT 100
 ```
 
-## The queries in this section are all connected with multiple geometric representations of features. 
+## Multiple data sets
+### Example queries 
 
-29) Show all the waterbodies with multiple geometry representations?
+1) Identify dams and lakes that are located within the crown land with pfi of 45541397?
 
-```
-SELECT (STRAFTER(STR(?wb_instance), '#') AS ?debug)
-	?pfi ?ufi ?ftype ?createdate ?geometry_coord
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {
-	?wb_instance rdf:type geosparql:Feature;
-		geosparql:hasGeometry ?geometry2;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
-    FILTER(?geometry2 != ?geometry).
-}
-LIMIT 500
-```
-
-30) Show all the waterbodies with both point and polygon representations. 
-
-Note that "LIMIT" won't work with this query, because we won't necessarily get matching point-polygon representations. Instead, the approach is to limit by waterbodyID (between 1000 and 2000, note this query may be slow): 
-
-```
-SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord (?wbid AS ?debug)
-	(STRAFTER(STR(?geometry), '#') AS ?geometryName)
-WHERE {
-	?wb_instance rdf:type geosparql:Feature;
-		Ontology_Vicmap:waterbodyID ?wbid;
-		geosparql:hasGeometry ?geometry2;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
-	?geometry2 rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:geometryCoordinates ?geometry2_coord.
-    FILTER(?wbidi>1000 && ?wbidi<2000 && 
-    	((?gtype="POIN" && ?g2type="POLY") || (?g2type="POIN" && ?gtype="POLY"))).
-    BIND(xsd:integer(?wbid) AS ?wbidi).
-    BIND(SUBSTR(STR(?geometry_coord),1,4) AS ?gtype).
-    BIND(SUBSTR(STR(?geometry2_coord),1,4) AS ?g2type).
-}
-```
-
-31) Show all the waterbodies with both point and polygon representations (alternative)
-
-An alternative formulation uses a nested query that will show water bodies with point and polygon representations where point features have 'wb_dam' and polygon features have 'wb_lake' feature types:
-
-```
-SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
-WHERE {
-	?wb_instance rdf:type geosparql:Feature;
-		geosparql:hasGeometry ?geometry.
-	?geometry rdf:type geosparql:Geometry ;
-		Ontology_Vicmap:hasPFI ?pfi;
-		Ontology_Vicmap:hasUFI ?ufi;
-		Ontology_Vicmap:varietyOf ?ftype;
-		Ontology_Vicmap:createDate ?createdate;
-		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
-	{SELECT ?wb_instance
-	WHERE {
-		?wb_instance rdf:type geosparql:Feature;
-			geosparql:hasGeometry ?geometry1;
-			geosparql:hasGeometry ?geometry2.
-		?geometry1 rdf:type geosparql:Geometry ;
-			Ontology_Vicmap:geometryCoordinates ?coord1;
-			Ontology_Vicmap:varietyOf 'wb_lake'.
-		?geometry2 rdf:type geosparql:Geometry ;
-			Ontology_Vicmap:geometryCoordinates ?coord2;
-			Ontology_Vicmap:varietyOf 'wb_dam'.
-		FILTER (regex(str(?coord1), "POLYGON", "i"))
-		FILTER (regex(str(?coord2), "POINT", "i"))
- 	}
-	GROUP BY ?wb_instance
-	HAVING (COUNT(DISTINCT ?geometry1) >= 1 && COUNT(DISTINCT ?geometry2) >= 1)
-    }
-}
-```
-
-## Multiple data set queries
-
-32) Identify dams and lakes that are located within the crown land with pfi of 45541397?
-
-This query spans the crown land and hydro data sets, using a spatial join. 
+The query below spans the crown land and hydro data sets, using a spatial join. 
 
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
@@ -1331,7 +1265,9 @@ WHERE{
 
 ```
 
-33) Identify the geometries in specific data sets associated with waterbody 3391
+2) Can you identify the geometries in specific data sets associated with waterbody 3391?
+
+   The query below retrieves all geometries related to a specific waterbody with 3391 identifier. 
 
 ```
 SELECT ?pfi ?createdate ?geometry_coord ?ufi ?ftype
@@ -1353,9 +1289,25 @@ WHERE{
 }
 
 ```
+## Basic SPARQL query
 
+The basic SPARQL query expected by [the visualisation dashboard](../VisualisationDashboard/vicmap_main_050324.html) is: 
+
+```
+SELECT ?pfi ?ufi ?ftype ?createdate ?geometry_coord
+WHERE {
+	?wb_instance rdf:type geosparql:Feature;
+		geosparql:hasGeometry ?geometry.
+	?geometry rdf:type geosparql:Geometry ;
+		Ontology_Vicmap:hasPFI ?pfi;
+		Ontology_Vicmap:hasUFI ?ufi;
+		Ontology_Vicmap:varietyOf ?ftype;
+		Ontology_Vicmap:createDate ?createdate;
+		Ontology_Vicmap:geometryCoordinates ?geometry_coord.
+}
+LIMIT 100
+```
 ## Indexing GraphDB
-
 ### Check indexing status
 
 ```
