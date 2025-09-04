@@ -226,6 +226,8 @@ SELECT ?pfi ?ufi ?createdate ?ftype ?auxname ?auxcontent WHERE {
 
 2) What is dataset and source of geometries with PFI of 8136595 in different data sets?
 
+   The query below retrieves provenance information of geometries with the permanent feature identifier 8136595. 
+
 ```
 SELECT ?pfi ?createdate ?ftype ?dataset ?identifier ?source
 WHERE  {
@@ -245,10 +247,9 @@ WHERE  {
 }
 ```
 
-3) Can you display waterbody lakes that are on the Vicmap crown land parcel that has specific permanent feature identifier (PFI) with number 52490156?
+3) What is description, create date or last modified date of a specified water feature? 
 
-   The query below retrieves waterbody lakes within a specific Vicmap property with the PFI specified in the question. It shows multiple waterbody lakes on one 
-   parcel that belongs to the crown land.
+   The query below retrieves provenance information of waterbody lakes within a Vicmap crown land parcel that has the specific permanent feature identifier (PFI) with number 52490156. It shows multiple waterbody lakes and their provenance.
 
 ```
 select ?pfi ?createdate ?geometry_coord ?ufi ?ftype ?auxname ?auxcontent
