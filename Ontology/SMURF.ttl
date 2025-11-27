@@ -40,17 +40,6 @@
             rdfs:label "Creation date"@en ;
             <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
 
-
-###  http://geosensor.net/ns/SMURF#geometryCoordinates
-:geometryCoordinates rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf <http://www.opengis.net/ont/geosparql#asWKT> ;
-                     rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-                     rdfs:range <http://www.opengis.net/ont/geosparql#wktLiteral> ;
-                     rdfs:comment "WKT geometry coordinates for a Geometry instance"@en ;
-                     rdfs:label "Geometry coordinates"@en ;
-                     <http://www.w3.org/2004/02/skos/core#definition> "WKT geometry coordinates for a Geometry instance"@en .
-
-
 ###  http://geosensor.net/ns/SMURF#hasPFI
 :hasPFI rdf:type owl:DatatypeProperty ;
         rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
