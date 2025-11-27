@@ -75,20 +75,6 @@
         <rdfs:label xml:lang="en">Creation date</rdfs:label>
         <skos:definition xml:lang="en">The date on which this Geometry was created</skos:definition>
     </owl:DatatypeProperty>
-    
-
-
-    <!-- http://geosensor.net/ns/SMURF#geometryCoordinates -->
-
-    <owl:DatatypeProperty rdf:about="http://geosensor.net/ns/SMURF#geometryCoordinates">
-        <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/ont/geosparql#asWKT"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/ont/geosparql#Geometry"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/ont/geosparql#wktLiteral"/>
-        <rdfs:comment xml:lang="en">WKT geometry coordinates for a Geometry instance</rdfs:comment>
-        <rdfs:label xml:lang="en">Geometry coordinates</rdfs:label>
-        <skos:definition xml:lang="en">WKT geometry coordinates for a Geometry instance</skos:definition>
-    </owl:DatatypeProperty>
-    
 
 
     <!-- http://geosensor.net/ns/SMURF#hasPFI -->
