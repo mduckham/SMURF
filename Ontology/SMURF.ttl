@@ -1,23 +1,58 @@
-@prefix : <http://geosensor.net/ns/SMURF#> .
+@prefix smurf: <https://linked.data.gov.au/def/smurf> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://geosensor.net/ns/SMURF> .
+@base <https://linked.data.gov.au/def/smurf> .
 
-<http://geosensor.net/ns/SMURF> rdf:type owl:Ontology ;
-                                 owl:versionIRI <http://geosensor.net/ns/SMURF-250115> ;
+<https://linked.data.gov.au/def/smurf> rdf:type owl:Ontology ;
+                                 owl:versionIRI <https://linked.data.gov.au/def/smurf/1.0> ;
+                                 owl:versionInfo "1.0" ;
                                  owl:imports <http://www.opengis.net/ont/geosparql> ,
                                              <http://www.w3.org/ns/dcat3> ,
                                              <http://www.w3.org/ns/dqv> ,
-                                             <http://www.w3.org/ns/prov-o-20130430> .
-
+                                             <http://www.w3.org/ns/prov-o-20130430> ;
+                                schema:title "SMURF Ontology" ;
+                                schema:publisher <https://linked.data.gov.au/org/rmit> ;
+                                schema:creator <https://linked.data.gov.au/org/rmit> ;
+                                schema:contributor 
+                                [
+                                   rdf:type schema:Person ;
+                                   schema:name "Matt Duckham" ;
+                                   schema:identifier <https://orcid.org/0000-0002-7249-6709> ;
+                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
+                                ] ,
+                                [
+                                   rdf:type schema:Person ;
+                                   schema:name "Nenad Radosevic" ;
+                                   schema:identifier <https://orcid.org/0000-0002-4082-2768> ;
+                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
+                                ] ,
+                                [
+                                   rdf:type schema:Person ;
+                                   schema:name "Mohammad Kazemi Beydokhti" ;
+                                   schema:identifier <https://orcid.org/0000-0003-1887-1560> ;
+                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
+                                ] ,
+                                [
+                                   rdf:type schema:Person ;
+                                   schema:name "Yaguang Tao" ;
+                                   schema:identifier <https://orcid.org/0000-0002-6335-1452> ;
+                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
+                                ] ;
+                                schema:description "The SMURF Ontology is an ontology that links existing ontologies and their properties to address challenges in the maintenance of foundation spatial data." ;
+                                schema:dateCreated "2024-10-08"^^xsd:date ;
+                                schema:dateModified "2026-01-19"^^xsd:date ;
+                                schema:codeRepository <https://github.com/mduckham/SMURF> ;
+                                schema:license <http://purl.org/NET/rdflicense/cc-by4.0> .
+                                
 #################################################################
 #    Object Properties
 #################################################################
 
-###  http://geosensor.net/ns/SMURF#hasGeometryProvenance
+###  https://linked.data.gov.au/def/smurf#hasGeometryProvenance
 :hasGeometryProvenance rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasDerivedFrom> ;
                        rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
@@ -32,7 +67,7 @@
 #    Data properties
 #################################################################
 
-###  http://geosensor.net/ns/SMURF#createDate
+###  https://linked.data.gov.au/def/smurf#createDate
 :createDate rdf:type owl:DatatypeProperty ;
             rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
             rdfs:range xsd:date ;
@@ -40,7 +75,7 @@
             rdfs:label "Creation date"@en ;
             <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
 
-###  http://geosensor.net/ns/SMURF#hasPFI
+###  https://linked.data.gov.au/def/smurf#hasPFI
 :hasPFI rdf:type owl:DatatypeProperty ;
         rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
         rdfs:range xsd:integer ;
@@ -49,7 +84,7 @@
         <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en .
 
 
-###  http://geosensor.net/ns/SMURF#hasUFI
+###  https://linked.data.gov.au/def/smurf#hasUFI
 :hasUFI rdf:type owl:DatatypeProperty ;
         rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
         rdfs:range xsd:integer ;
@@ -58,7 +93,7 @@
         <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en .
 
 
-###  http://geosensor.net/ns/SMURF#isAuthoritativeData
+###  https://linked.data.gov.au/def/smurf#isAuthoritativeData
 :isAuthoritativeData rdf:type owl:DatatypeProperty ;
                      rdfs:domain <http://www.w3.org/ns/dqv#QualityMeasurement> ;
                      rdfs:range xsd:boolean ;
@@ -67,7 +102,7 @@
                      <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
 
 
-###  http://geosensor.net/ns/SMURF#isCrown
+###  https://linked.data.gov.au/def/smurf#isCrown
 :isCrown rdf:type owl:DatatypeProperty ;
          rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
          rdfs:range xsd:boolean ;
@@ -76,7 +111,7 @@
          <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
 
 
-###  http://geosensor.net/ns/SMURF#organizationEmail
+###  https://linked.data.gov.au/def/smurf#organizationEmail
 :organizationEmail rdf:type owl:DatatypeProperty ;
                    rdfs:domain <http://www.w3.org/ns/prov#Organization> ;
                    rdfs:range xsd:string ;
@@ -85,7 +120,7 @@
                    <http://www.w3.org/2004/02/skos/core#definition> "Organization email address"@en .
 
 
-###  http://geosensor.net/ns/SMURF#personalEmail
+###  https://linked.data.gov.au/def/smurf#personalEmail
 :personalEmail rdf:type owl:DatatypeProperty ;
                rdfs:domain <http://www.w3.org/ns/prov#Person> ;
                rdfs:range xsd:string ;
@@ -94,7 +129,7 @@
                <http://www.w3.org/2004/02/skos/core#definition> "Personal email address"@en .
 
 
-###  http://geosensor.net/ns/SMURF#varietyOf
+###  https://linked.data.gov.au/def/smurf#varietyOf
 :varietyOf rdf:type owl:DatatypeProperty ;
            rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
            rdfs:range xsd:string ;
@@ -103,7 +138,7 @@
            <http://www.w3.org/2004/02/skos/core#definition> "Water body type attribute, indicating the type of hydrology feature"@en .
 
 
-###  http://geosensor.net/ns/SMURF#waterbodyID
+###  https://linked.data.gov.au/def/smurf#waterbodyID
 :waterbodyID rdf:type owl:DatatypeProperty ;
              rdfs:domain <http://www.opengis.net/ont/geosparql#Feature> ;
              rdfs:range xsd:integer ;
@@ -111,5 +146,3 @@
              rdfs:label "Waterbody ID"@en ;
              <http://www.w3.org/2004/02/skos/core#definition> "Vicmap waterbody identifier"@en .
 
-
-###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
