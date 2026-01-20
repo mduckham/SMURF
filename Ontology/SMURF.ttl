@@ -1,7 +1,7 @@
-@prefix : <https://linked.data.gov.au/def/smurf/> .
+@prefix smurf: <https://linked.data.gov.au/def/smurf/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+# @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -26,14 +26,14 @@
                                 schema:dateCreated "2024-10-08"^^xsd:date ;
                                 schema:dateModified "2026-01-19"^^xsd:date ;
                                 schema:codeRepository <https://github.com/mduckham/SMURF>^^xsd:anyURI ;
-                                schema:license <http://purl.org/NET/rdflicense/cc-by4.0>
-                                skos:historyNote "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets" .
+                                schema:license <http://purl.org/NET/rdflicense/cc-by4.0> ;
+                                skos:historyNote "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets." .
+                                
                                 <https://orcid.org/0000-0002-7249-6709>
                                 rdf:type schema:Person ;
                                 schema:name "Matt Duckham" ;
                                 schema:affiliation <https://linked.data.gov.au/org/rmit> ;
                                 schema:email "matt.duckham@rmit.edu.au"^^xsd:anyURI .
-
                                 <https://orcid.org/0000-0002-4082-2768>
                                     rdf:type schema:Person ;
                                     schema:name "Nenad Radosevic" ;
@@ -53,12 +53,14 @@
                                     rdf:type schema:Organization ;
                                     schema:name "Geographic Knowledge Lab at RMIT University" ;
                                     schema:url "https://gkl.rmit.melbourne/"^^xsd:anyURI .
+
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  https://linked.data.gov.au/def/smurf#hasGeometryProvenance
-smurf:hasGeometryProvenance rdf:type owl:ObjectProperty ;
+smurf:hasGeometryProvenance 
+                       rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasDerivedFrom> ;
                        rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
                        rdfs:range <http://purl.org/linked-data/cube#DataSet> ;
@@ -80,8 +82,9 @@ smurf:hasGeometryProvenance rdf:type owl:ObjectProperty ;
            # rdfs:label "Creation date"@en ;
            # <http://www.w3.org/2004/02/skos/coredefinition> "The date on which this Geometry was created"@en .
 
-https://linked.data.gov.au/def/smurf#PFI
-smurf:PFI rdf:type owl:DatatypeProperty ;
+#https://linked.data.gov.au/def/smurf#PFI
+smurf:PFI 
+          rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf <https://schema.org/identifier> ; 
           rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
           rdfs:range xsd:integer ;
@@ -91,7 +94,8 @@ smurf:PFI rdf:type owl:DatatypeProperty ;
 
 
 ###  https://linked.data.gov.au/def/smurf#UFI
-smurf:UFI rdf:type owl:DatatypeProperty ;
+smurf:UFI 
+          rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf <https://schema.org/identifier> ;
           rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
           rdfs:range xsd:integer ;
@@ -101,7 +105,8 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
 
 
 ###  https://linked.data.gov.au/def/smurf#isAuthoritativeData instead use https://schema.org/additionalProperty
-:isAuthoritativeData rdf:type owl:DatatypeProperty ;
+smurf:isAuthoritativeData 
+                     rdf:type owl:DatatypeProperty ;
                      rdfs:domain <http://www.w3.org/ns/dqv#QualityMeasurement> ;
                      rdfs:range xsd:boolean ;
                      rdfs:comment "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en ;
@@ -110,7 +115,8 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
 
 
 ###  https://linked.data.gov.au/def/smurf#isCrown instead use https://schema.org/additionalProperty
-:isCrown rdf:type owl:DatatypeProperty ;
+smurf:isCrown 
+         rdf:type owl:DatatypeProperty ;
          rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
          rdfs:range xsd:boolean ;
          rdfs:comment "Flag to indicate if this data item is a Crown land (true) or not (false)"@en ;
