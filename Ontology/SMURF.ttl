@@ -74,18 +74,9 @@ smurf:hasGeometryProvenance
 #   Data properties
 #################################################################
 
-###  https://linked.data.gov.au/def/smurf#createDate
-#:createDate rdf:type owl:DatatypeProperty ;
-           # rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-           # rdfs:range xsd:date ;
-           # rdfs:comment "The date on which this Geometry was created"@en ;
-           # rdfs:label "Creation date"@en ;
-           # <http://www.w3.org/2004/02/skos/coredefinition> "The date on which this Geometry was created"@en .
-
-
 #  Identifiers
 #########################################
-#https://linked.data.gov.au/def/smurf#PFI
+#https://linked.data.gov.au/def/smurf#PFI introduce smurf:PFI as sub data property of schema:identifier https://schema.org/identifier
 smurf:PFI 
           rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf <https://schema.org/identifier> ; 
@@ -96,7 +87,7 @@ smurf:PFI
           skos:definition "Indicates the VicMap PFI (Persistent Feature Identifier) for this Geometry"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#UFI
+###  https://linked.data.gov.au/def/smurf#UFI introduce smurf:UFI as sub data property of schema:identifier https://schema.org/identifier
 smurf:UFI 
           rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf <https://schema.org/identifier> ;
@@ -106,6 +97,7 @@ smurf:UFI
           rdfs:label "UFI (Unique Feature Identifier)"@en ;
           skos:definition "Indicates the VicMap UFI (Unique Feature Identifier) for this Geometry"@en .
 
+### https://linked.data.gov.au/def/smurf#UFI introduce smurf:waterbodyID as sub data property of schema:identifier https://schema.org/identifier
 smurf:waterbodyID 
              rdf:type owl:DatatypeProperty ;
              rdfs:subPropertyOf <https://schema.org/identifier> ;
@@ -118,7 +110,7 @@ smurf:waterbodyID
 # Additional Feature Property
 ###################################################################
 
-###  https://linked.data.gov.au/def/smurf#isCrown instead use https://schema.org/additionalProperty
+###  https://linked.data.gov.au/def/smurf#isCrown introduce smurf:isCrown as sub data property of schema:additionalProperty https://schema.org/additionalProperty
 smurf:isCrown 
          rdf:type owl:DatatypeProperty ;
          rdfs:subPropertyOf <https://schema.org/additionalProperty> ;
@@ -128,7 +120,7 @@ smurf:isCrown
          rdfs:label "Is Crown"@en ;
          skos:definition "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
 
-###  https://linked.data.gov.au/def/smurf#isAuthoritativeData instead use https://schema.org/additionalProperty
+###  https://linked.data.gov.au/def/smurf#isAuthoritativeData introduce smurf:isAuthoritativeData as sub data property of schema:additionalProperty https://schema.org/additionalProperty
 smurf:isAuthoritativeData 
                      rdf:type owl:DatatypeProperty ;
                      rdfs:subPropertyOf <https://schema.org/additionalProperty> ;
@@ -138,7 +130,7 @@ smurf:isAuthoritativeData
                      rdfs:label "Is authoritative data version"@en ;
                      skos:definition "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
 
-###  https://linked.data.gov.au/def/smurf#varietyOf instead use https://schema.org/additionalType
+###  https://linked.data.gov.au/def/smurf#varietyOf introduce smurf:varietyOf sub data property of schema:additionalType  https://schema.org/additionalType
 smurf:varietyOf 
            rdf:type owl:DatatypeProperty ;
            rdfs:subPropertyOf <https://schema.org/additionalType> ;
@@ -163,3 +155,13 @@ smurf:varietyOf
               # rdfs:comment "Personal email address"@en ;
               # rdfs:label "Personal email"@en ;
               # skos:definition "Personal email address"@en .
+###  https://linked.data.gov.au/def/smurf#createDate
+
+#:createDate rdf:type owl:DatatypeProperty ;
+           # rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+           # rdfs:range xsd:date ;
+           # rdfs:comment "The date on which this Geometry was created"@en ;
+           # rdfs:label "Creation date"@en ;
+           # <http://www.w3.org/2004/02/skos/coredefinition> "The date on which this Geometry was created"@en .
+
+
