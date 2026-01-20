@@ -24,7 +24,7 @@
                                     <https://orcid.org/0000-0002-6335-1452> ; 
                                 schema:description "The SMURF Ontology is an ontology that links existing ontologies and their properties to address challenges in the maintenance of foundation spatial data." ;
                                 schema:dateCreated "2024-10-08"^^xsd:date ;
-                                schema:dateModified "2026-01-19"^^xsd:date ;
+                                schema:dateModified "2026-01-20"^^xsd:date ;
                                 schema:codeRepository "https://github.com/mduckham/SMURF"^^xsd:anyURI ;
                                 schema:license <http://purl.org/NET/rdflicense/cc-by4.0> ;
                                 skos:historyNote "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets." .
