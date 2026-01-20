@@ -1,10 +1,11 @@
-@prefix smurf: <https://linked.data.gov.au/def/smurf> .
+@prefix : <https://linked.data.gov.au/def/smurf/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 <https://linked.data.gov.au/def/smurf> rdf:type owl:Ontology ;
                                  owl:versionIRI <https://linked.data.gov.au/def/smurf/1.0> ;
@@ -26,7 +27,7 @@
                                 schema:dateModified "2026-01-19"^^xsd:date ;
                                 schema:codeRepository <https://github.com/mduckham/SMURF>^^xsd:anyURI ;
                                 schema:license <http://purl.org/NET/rdflicense/cc-by4.0>
-                                <http://www.w3.org/2004/02/skos/core#historyNote> "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets" .
+                                skos:historyNote "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets" .
                                 <https://orcid.org/0000-0002-7249-6709>
                                 rdf:type schema:Person ;
                                 schema:name "Matt Duckham" ;
@@ -63,8 +64,8 @@ smurf:hasGeometryProvenance rdf:type owl:ObjectProperty ;
                        rdfs:range <http://purl.org/linked-data/cube#DataSet> ;
                        rdfs:comment "hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPARQL Geometry in terms of a DCAT Dataset instance."@en ;
                        rdfs:label "hasGeometryProvenance"@en ;
-                       <http://www.w3.org/2004/02/skos/core#definition> "hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPARQL Geometry in terms of a DCAT Dataset instance."@en ;
-                       <http://www.w3.org/2004/02/skos/core#example> "Geometry x is from (hasGeometryProvenance) Dataset y"@en .
+                       skos:definition "hasGeometryProvenance indicates the provenance (i.e., source, quality, and other metadata) of a GeoSPARQL Geometry in terms of a DCAT Dataset instance."@en ;
+                       skos:example "Geometry x is from (hasGeometryProvenance) Dataset y"@en .
 
 
 #################################################################
@@ -77,7 +78,7 @@ smurf:hasGeometryProvenance rdf:type owl:ObjectProperty ;
            # rdfs:range xsd:date ;
            # rdfs:comment "The date on which this Geometry was created"@en ;
            # rdfs:label "Creation date"@en ;
-           # <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
+           # <http://www.w3.org/2004/02/skos/coredefinition> "The date on which this Geometry was created"@en .
 
 https://linked.data.gov.au/def/smurf#PFI
 smurf:PFI rdf:type owl:DatatypeProperty ;
@@ -86,7 +87,7 @@ smurf:PFI rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:integer ;
           rdfs:comment "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en ;
           rdfs:label "PFI (Persistent Feature Identifier)"@en ;
-          <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap PFI (Persistent Feature Identifier) for this Geometry"@en .
+          skos:definition "Indicates the VicMap PFI (Persistent Feature Identifier) for this Geometry"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#UFI
@@ -96,7 +97,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:integer ;
           rdfs:comment "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en ;
           rdfs:label "UFI (Unique Feature Identifier)"@en ;
-          <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap UFI (Unique Feature Identifier) for this Geometry"@en .
+          skos:definition "Indicates the VicMap UFI (Unique Feature Identifier) for this Geometry"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#isAuthoritativeData instead use https://schema.org/additionalProperty
@@ -105,7 +106,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
                      rdfs:range xsd:boolean ;
                      rdfs:comment "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en ;
                      rdfs:label "Is authoritative data version"@en ;
-                     <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
+                     skos:definition "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#isCrown instead use https://schema.org/additionalProperty
@@ -114,7 +115,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
          rdfs:range xsd:boolean ;
          rdfs:comment "Flag to indicate if this data item is a Crown land (true) or not (false)"@en ;
          rdfs:label "Is Crown"@en ;
-         <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
+         skos:definition "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#organizationEmail instead use https://schema.org/email
@@ -123,7 +124,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
                   # rdfs:range xsd:string ;
                   # rdfs:label "Organization email"@en ,
                            #   "Organization email address"@en ;
-                  # <http://www.w3.org/2004/02/skos/core#definition> "Organization email address"@en .
+                  # skos:definition "Organization email address"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#personalEmail instead use https://schema.org/email
@@ -132,7 +133,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
               # rdfs:range xsd:string ;
               # rdfs:comment "Personal email address"@en ;
               # rdfs:label "Personal email"@en ;
-              # <http://www.w3.org/2004/02/skos/core#definition> "Personal email address"@en .
+              # skos:definition "Personal email address"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#varietyOf instead use https://schema.org/additionalType
@@ -141,7 +142,7 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
            #rdfs:range xsd:string ;
            #rdfs:comment "Water body type attribute, indicating the type of hydrology feature"@en ;
            #rdfs:label "Variety of"@en ;
-           #<http://www.w3.org/2004/02/skos/core#definition> "Water body type attribute, indicating the type of hydrology feature"@en .
+           #skos:definition "Water body type attribute, indicating the type of hydrology feature"@en .
 
 
 ###  https://linked.data.gov.au/def/smurf#waterbodyID instead use https://schema.org/propertyID OR use subproperty 
@@ -151,5 +152,5 @@ smurf:UFI rdf:type owl:DatatypeProperty ;
              #rdfs:range xsd:integer ;
              #rdfs:comment "Vicmap waterbody identifier"@en ;
              #rdfs:label "Waterbody ID"@en ;
-             #<http://www.w3.org/2004/02/skos/core#definition> "Vicmap waterbody identifier"@en .
+             #skos:definition "Vicmap waterbody identifier"@en .
 
