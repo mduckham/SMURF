@@ -5,7 +5,6 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <https://schema.org/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <https://linked.data.gov.au/def/smurf> .
 
 <https://linked.data.gov.au/def/smurf> rdf:type owl:Ontology ;
                                  owl:versionIRI <https://linked.data.gov.au/def/smurf/1.0> ;
@@ -14,46 +13,51 @@
                                              <http://www.w3.org/ns/dcat3> ,
                                              <http://www.w3.org/ns/dqv> ,
                                              <http://www.w3.org/ns/prov-o-20130430> ;
-                                schema:title "SMURF Ontology" ;
+                                schema:name "SMURF Ontology" ;
                                 schema:publisher <https://linked.data.gov.au/org/rmit> ;
                                 schema:creator <https://linked.data.gov.au/org/rmit> ;
-                                schema:contributor 
-                                [
-                                   rdf:type schema:Person ;
-                                   schema:name "Matt Duckham" ;
-                                   schema:identifier <https://orcid.org/0000-0002-7249-6709> ;
-                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
-                                ] ,
-                                [
-                                   rdf:type schema:Person ;
-                                   schema:name "Nenad Radosevic" ;
-                                   schema:identifier <https://orcid.org/0000-0002-4082-2768> ;
-                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
-                                ] ,
-                                [
-                                   rdf:type schema:Person ;
-                                   schema:name "Mohammad Kazemi Beydokhti" ;
-                                   schema:identifier <https://orcid.org/0000-0003-1887-1560> ;
-                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
-                                ] ,
-                                [
-                                   rdf:type schema:Person ;
-                                   schema:name "Yaguang Tao" ;
-                                   schema:identifier <https://orcid.org/0000-0002-6335-1452> ;
-                                   schema:affiliation <https://linked.data.gov.au/org/rmit>
-                                ] ;
+                                schema:contributor
+                                    <https://orcid.org/0000-0002-7249-6709> ,
+                                    <https://orcid.org/0000-0002-4082-2768> ,
+                                    <https://orcid.org/0000-0003-1887-1560> ,
+                                    <https://orcid.org/0000-0002-6335-1452> ; 
                                 schema:description "The SMURF Ontology is an ontology that links existing ontologies and their properties to address challenges in the maintenance of foundation spatial data." ;
                                 schema:dateCreated "2024-10-08"^^xsd:date ;
                                 schema:dateModified "2026-01-19"^^xsd:date ;
-                                schema:codeRepository <https://github.com/mduckham/SMURF> ;
-                                schema:license <http://purl.org/NET/rdflicense/cc-by4.0> .
-                                
+                                schema:codeRepository <https://github.com/mduckham/SMURF>^^xsd:anyURI ;
+                                schema:license <http://purl.org/NET/rdflicense/cc-by4.0>
+                                <http://www.w3.org/2004/02/skos/core#historyNote> "Made in 2024 for semantic enrichment of foundation spatial data such as hydrology, flood, and parcel data sets" .
+                                <https://orcid.org/0000-0002-7249-6709>
+                                rdf:type schema:Person ;
+                                schema:name "Matt Duckham" ;
+                                schema:affiliation <https://linked.data.gov.au/org/rmit> ;
+                                schema:email "matt.duckham@rmit.edu.au"^^xsd:anyURI .
+
+                                <https://orcid.org/0000-0002-4082-2768>
+                                    rdf:type schema:Person ;
+                                    schema:name "Nenad Radosevic" ;
+                                    schema:affiliation <https://linked.data.gov.au/org/rmit> ;
+                                    schema:email "nenad.radosevic@rmit.edu.au"^^xsd:anyURI .
+                                <https://orcid.org/0000-0003-1887-1560>
+                                    rdf:type schema:Person ;
+                                    schema:name "Mohammad Kazemi Beydokhti" ;
+                                    schema:affiliation <https://linked.data.gov.au/org/rmit> ;
+                                    schema:email "mohammad.beydokhti@rmit.edu.au"^^xsd:anyURI .
+                                <https://orcid.org/0000-0002-6335-1452>
+                                    rdf:type schema:Person ;
+                                    schema:name "Yaguang Tao" ;
+                                    schema:affiliation <https://linked.data.gov.au/org/rmit> ;
+                                    schema:email "yaguang.tao@rmit.edu.au"^^xsd:anyURI .
+                                <https://linked.data.gov.au/org/rmit>
+                                    rdf:type schema:Organization ;
+                                    schema:name "Geographic Knowledge Lab at RMIT University" ;
+                                    schema:url "https://gkl.rmit.melbourne/"^^xsd:anyURI .
 #################################################################
 #    Object Properties
 #################################################################
 
 ###  https://linked.data.gov.au/def/smurf#hasGeometryProvenance
-:hasGeometryProvenance rdf:type owl:ObjectProperty ;
+smurf:hasGeometryProvenance rdf:type owl:ObjectProperty ;
                        rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasDerivedFrom> ;
                        rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
                        rdfs:range <http://purl.org/linked-data/cube#DataSet> ;
@@ -68,32 +72,34 @@
 #################################################################
 
 ###  https://linked.data.gov.au/def/smurf#createDate
-:createDate rdf:type owl:DatatypeProperty ;
-            rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-            rdfs:range xsd:date ;
-            rdfs:comment "The date on which this Geometry was created"@en ;
-            rdfs:label "Creation date"@en ;
-            <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
+#:createDate rdf:type owl:DatatypeProperty ;
+           # rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+           # rdfs:range xsd:date ;
+           # rdfs:comment "The date on which this Geometry was created"@en ;
+           # rdfs:label "Creation date"@en ;
+           # <http://www.w3.org/2004/02/skos/core#definition> "The date on which this Geometry was created"@en .
 
-###  https://linked.data.gov.au/def/smurf#hasPFI
-:hasPFI rdf:type owl:DatatypeProperty ;
-        rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-        rdfs:range xsd:integer ;
-        rdfs:comment "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en ;
-        rdfs:label "Has PFI (persistent feature identifier)"@en ;
-        <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en .
-
-
-###  https://linked.data.gov.au/def/smurf#hasUFI
-:hasUFI rdf:type owl:DatatypeProperty ;
-        rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-        rdfs:range xsd:integer ;
-        rdfs:comment "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en ;
-        rdfs:label "Has UFI (unique feature identifier)"@en ;
-        <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en .
+https://linked.data.gov.au/def/smurf#PFI
+smurf:PFI rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf <https://schema.org/identifier> ; 
+          rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+          rdfs:range xsd:integer ;
+          rdfs:comment "Indicates the VicMap PFI (persistent feature identifier) for this Geometry"@en ;
+          rdfs:label "PFI (Persistent Feature Identifier)"@en ;
+          <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap PFI (Persistent Feature Identifier) for this Geometry"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#isAuthoritativeData
+###  https://linked.data.gov.au/def/smurf#UFI
+smurf:UFI rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf <https://schema.org/identifier> ;
+          rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+          rdfs:range xsd:integer ;
+          rdfs:comment "Indicates the VicMap UFI (unique feature identifier) for this Geometry"@en ;
+          rdfs:label "UFI (Unique Feature Identifier)"@en ;
+          <http://www.w3.org/2004/02/skos/core#definition> "Indicates the VicMap UFI (Unique Feature Identifier) for this Geometry"@en .
+
+
+###  https://linked.data.gov.au/def/smurf#isAuthoritativeData instead use https://schema.org/additionalProperty
 :isAuthoritativeData rdf:type owl:DatatypeProperty ;
                      rdfs:domain <http://www.w3.org/ns/dqv#QualityMeasurement> ;
                      rdfs:range xsd:boolean ;
@@ -102,7 +108,7 @@
                      <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is an authoritative VicMap version (true) or not (false)"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#isCrown
+###  https://linked.data.gov.au/def/smurf#isCrown instead use https://schema.org/additionalProperty
 :isCrown rdf:type owl:DatatypeProperty ;
          rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
          rdfs:range xsd:boolean ;
@@ -111,38 +117,39 @@
          <http://www.w3.org/2004/02/skos/core#definition> "Flag to indicate if this data item is a Crown land (true) or not (false)"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#organizationEmail
-:organizationEmail rdf:type owl:DatatypeProperty ;
-                   rdfs:domain <http://www.w3.org/ns/prov#Organization> ;
-                   rdfs:range xsd:string ;
-                   rdfs:label "Organization email"@en ,
-                              "Organization email address"@en ;
-                   <http://www.w3.org/2004/02/skos/core#definition> "Organization email address"@en .
+###  https://linked.data.gov.au/def/smurf#organizationEmail instead use https://schema.org/email
+#:organizationEmail rdf:type owl:DatatypeProperty ;
+                  # rdfs:domain <http://www.w3.org/ns/prov#Organization> ;
+                  # rdfs:range xsd:string ;
+                  # rdfs:label "Organization email"@en ,
+                           #   "Organization email address"@en ;
+                  # <http://www.w3.org/2004/02/skos/core#definition> "Organization email address"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#personalEmail
-:personalEmail rdf:type owl:DatatypeProperty ;
-               rdfs:domain <http://www.w3.org/ns/prov#Person> ;
-               rdfs:range xsd:string ;
-               rdfs:comment "Personal email address"@en ;
-               rdfs:label "Personal email"@en ;
-               <http://www.w3.org/2004/02/skos/core#definition> "Personal email address"@en .
+###  https://linked.data.gov.au/def/smurf#personalEmail instead use https://schema.org/email
+#:personalEmail rdf:type owl:DatatypeProperty ;
+              # rdfs:domain <http://www.w3.org/ns/prov#Person> ;
+              # rdfs:range xsd:string ;
+              # rdfs:comment "Personal email address"@en ;
+              # rdfs:label "Personal email"@en ;
+              # <http://www.w3.org/2004/02/skos/core#definition> "Personal email address"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#varietyOf
-:varietyOf rdf:type owl:DatatypeProperty ;
-           rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-           rdfs:range xsd:string ;
-           rdfs:comment "Water body type attribute, indicating the type of hydrology feature"@en ;
-           rdfs:label "Variety of"@en ;
-           <http://www.w3.org/2004/02/skos/core#definition> "Water body type attribute, indicating the type of hydrology feature"@en .
+###  https://linked.data.gov.au/def/smurf#varietyOf instead use https://schema.org/additionalType
+#smurf:varietyOf rdf:type owl:DatatypeProperty ;
+           #rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
+           #rdfs:range xsd:string ;
+           #rdfs:comment "Water body type attribute, indicating the type of hydrology feature"@en ;
+           #rdfs:label "Variety of"@en ;
+           #<http://www.w3.org/2004/02/skos/core#definition> "Water body type attribute, indicating the type of hydrology feature"@en .
 
 
-###  https://linked.data.gov.au/def/smurf#waterbodyID
-:waterbodyID rdf:type owl:DatatypeProperty ;
-             rdfs:domain <http://www.opengis.net/ont/geosparql#Feature> ;
-             rdfs:range xsd:integer ;
-             rdfs:comment "Vicmap waterbody identifier"@en ;
-             rdfs:label "Waterbody ID"@en ;
-             <http://www.w3.org/2004/02/skos/core#definition> "Vicmap waterbody identifier"@en .
+###  https://linked.data.gov.au/def/smurf#waterbodyID instead use https://schema.org/propertyID OR use subproperty 
+#smurf:waterbodyID rdf:type owl:DatatypeProperty ;
+             #rdfs:subPropertyOf <https://schema.org/identifier> ;
+             #rdfs:domain <http://www.opengis.net/ont/geosparql#Feature> ;
+             #rdfs:range xsd:integer ;
+             #rdfs:comment "Vicmap waterbody identifier"@en ;
+             #rdfs:label "Waterbody ID"@en ;
+             #<http://www.w3.org/2004/02/skos/core#definition> "Vicmap waterbody identifier"@en .
 
