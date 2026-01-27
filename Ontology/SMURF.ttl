@@ -138,29 +138,3 @@ smurf:varietyOf
            rdfs:comment "Water body type attribute, indicating the type of hydrology feature"@en ;
            rdfs:label "Variety of"@en ;
            skos:definition "Water body type attribute, indicating the type of hydrology feature"@en .
-
-###  https://linked.data.gov.au/def/smurf#organizationEmail instead use https://schema.org/email
-#:organizationEmail rdf:type owl:DatatypeProperty ;
-                  # rdfs:domain <http://www.w3.org/ns/prov#Organization> ;
-                  # rdfs:range xsd:string ;
-                  # rdfs:label "Organization email"@en ,
-                           #   "Organization email address"@en ;
-                  # skos:definition "Organization email address"@en .
-
-###  https://linked.data.gov.au/def/smurf#personalEmail instead use https://schema.org/email
-#:personalEmail rdf:type owl:DatatypeProperty ;
-              # rdfs:domain <http://www.w3.org/ns/prov#Person> ;
-              # rdfs:range xsd:string ;
-              # rdfs:comment "Personal email address"@en ;
-              # rdfs:label "Personal email"@en ;
-              # skos:definition "Personal email address"@en .
-###  https://linked.data.gov.au/def/smurf#createDate
-
-#:createDate rdf:type owl:DatatypeProperty ;
-           # rdfs:domain <http://www.opengis.net/ont/geosparql#Geometry> ;
-           # rdfs:range xsd:date ;
-           # rdfs:comment "The date on which this Geometry was created"@en ;
-           # rdfs:label "Creation date"@en ;
-           # <http://www.w3.org/2004/02/skos/coredefinition> "The date on which this Geometry was created"@en .
-
-
