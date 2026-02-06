@@ -1,0 +1,29 @@
+name: Auto-build HTML
+
+on:
+  push:
+      branches:
+          - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+    - name: Build
+      working-directory: ./
+      run: |
+        echo "Making deployment dir - docs/"
+        mkdir docs
+        #
+        echo "Add HTML to docs/"
+        cp smurf.html docs/        
+        #
+        echo "Add RDF to docs/"
+        cp SMURF.ttl docs/
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+         BRANCH: gh-pages
+         FOLDER: docs
