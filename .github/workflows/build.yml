@@ -21,7 +21,7 @@ jobs:
         cp smurf.html docs/        
         #
         echo "Add RDF to docs/"
-        cp SMURF.ttl docs/
+        cp Ontology/smurf.ttl docs/
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
