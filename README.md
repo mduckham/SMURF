@@ -1,4 +1,5 @@
 # SMURF: Spatial management, update, and revision framework
+
 This is the repository of source codes and datasets for SMURF (spatial management, update, and revision framework): a common ontological core to support enrichment of foundation spatial data with semantics. The project grew out of the Dynamic Vicmap project---a collaboration between the [RMIT Geographic Knowledge Lab](http://geosensor.net/gkl/), [FrontierSI](https://frontiersi.com.au/), Victorian Government Spatial Services, and the [SmartSat CRC](https://smartsatcrc.com/). The Dynamic Vicmap project tested out SMURF by building a Victorian statewide semantically annotated hydrological knowledge graph, which can be downloaded from this site. 
 
 
