@@ -74,12 +74,12 @@ In order to run the main.py script, you have to do the following steps:
 ## Queries
 
  - Importing large rdf file into GraphDB: The created [full knowledge graph](https://www.dropbox.com/scl/fi/g8eyvn2upfhck31nfe84z/KG240307.rdf?rlkey=1nnao18gsm7dygrdui1q63pir&st=fsiayzir&dl=0) file is over 5GB for the whole state, so this should be imported as server files into GraphDB as follows:
-	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on Mac OS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
+	 - Create a folder with the name _graphdb-import_ in your GraphDB's server directory (on MacOS it is in _~/_ or equivalently _/Users/my_username_), and then place the downloaded rdf file there. 
 	 - Restart the Graphdb workbench and go to the import tab.
          - You should see the rdf file name under the server files. 
 	 - Finally, provide the IRI of the rdf file (You can find this in the [SMURF Turtle](/Ontology/SMURF.ttl) or [RDF](/Ontology/SMURF.rdf) file (line 1 in the file), it should be successfully imported into the online GraphDB workbench.
 
-- You can find the list of SPARQL queries in the in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG for the whole state) in GraphDB and retrieve answers.
+- You can find the list of SPARQL queries in the [Queries folder](Queries) where you can run those over the imported Knowledge Graph (KG for the whole state) in GraphDB and retrieve answers.
  
 ## AWS EC2 instance
 We tested this work on the AWS and the following EC2 instances:
