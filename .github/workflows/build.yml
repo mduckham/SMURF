@@ -1,4 +1,4 @@
-name: Auto-build HTML
+name: Publish via gh-pages
 
 on:
   push:
