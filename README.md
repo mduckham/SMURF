@@ -32,8 +32,6 @@ The below image shows the snapshot of the classes, Object Property (OP), and Dat
 
 ![Ontology Diagram](Ontology/OntologyDiagram.png)
 
-
-
 2. **Data Stage**: This stage has three steps as follows:
 	 - *Pre-processing of input data*: four hydro dataset including authoritative data: Waterbody Hydro Polygon and Waterbody Hydro Point, non-authoritative data: Waterbody captured from ML have pre-processed based on: checking their geometry, having consistent attribute names including UFI, PFI, C_DATE_PFI, F_TYPE_COD, and finally checking CRS of different layers to be consistent with authoritative data. 
 	 - *Embedded rules:* There are mainly two rules embedded in the script for creating waterbody instances: 1) Intersection: when two polygons are intersected, then they are for the same waterbody. 2) Buffer: when a point within a buffer of a specific distance (e.g., 10m) of a polygon, then the point and polygon are two representations of the same waterbody.
