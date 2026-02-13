@@ -4,6 +4,7 @@ This is the repository of source codes and datasets for SMURF (spatial managemen
 
 
 ## Semantic data enrichment
+
 Dynamic Vicmap used SMURF to support semantic spatial data enrichment: extending conventional spatial data and data models with additional ontological structure that provides meaning, background, and context. The semantic dada enrichment process typically has four stages. 
  
 1. **Ontology Engineering**: The [SMURF ontology](Ontology/SMURF.ttl) (in [Turtle](Ontology/SMURF.ttl) or [RDF](Ontology/SMURF.rdf)) has been created based on the following standardized ontology as well as our own created data properties (shown as green):
